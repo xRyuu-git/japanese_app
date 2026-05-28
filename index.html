@@ -60,13 +60,6 @@ function saveKey() {
   localStorage.setItem('sp3_gemini_key', k);
   document.getElementById('setup').style.display = 'none';
   document.getElementById('splash').style.display = 'flex';
-  // Trigger app start
-  window._startApp && window._startApp();
-}
-// Show setup if needed
-if (window._needsKeySetup) {
-  document.getElementById('setup').style.display = 'flex';
-  document.getElementById('splash').style.display = 'none';
 }
 </script>
 
@@ -6715,6 +6708,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(
 <script>
 var _t=setInterval(function(){var r=document.getElementById('root');if(r&&r.firstChild){var s=document.getElementById('splash');if(s){s.style.opacity='0';setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s);},450);}clearInterval(_t);}},80);
 setTimeout(function(){clearInterval(_t);var s=document.getElementById('splash');if(s){s.style.opacity='0';setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s);},450);}},10000);
+</script>
+<script>
+// Check AFTER everything loaded - show setup if no key
+if (!localStorage.getItem('sp3_gemini_key')) {
+  document.getElementById('setup').style.display = 'flex';
+  document.getElementById('splash').style.display = 'none';
+}
 </script>
 </body>
 </html>
