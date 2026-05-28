@@ -394,7 +394,7 @@ async function _llm_(opts) {
     if (!contents.length) contents.push({ role: "user", parts: [{ text: "hi" }] });
     const gb = { contents, generationConfig: { maxOutputTokens: Math.min(maxT, 8192) } };
     if (sys) gb.systemInstruction = { parts: [{ text: sys }] };
-    const gemUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + gk;
+    const gemUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + gk;
     try {
       const gr = await fetch(gemUrl, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(gb) });
       if (gr.ok) {
