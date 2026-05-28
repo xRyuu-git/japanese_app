@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#7c3aed">
-<title>Sprache 🌸</title>
+<title>Sprache</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;background:#fff}
@@ -18,62 +18,53 @@ html,body{height:100%;background:#fff}
 @keyframes spin{to{transform:rotate(360deg)}}
 button:active{transform:scale(0.97)}ruby{ruby-align:center}rt{font-size:.6em;line-height:1.5;text-align:center}
 ::selection{background:#8b5cf6;color:#fff}::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:rgba(127,127,127,.3);border-radius:3px}
-
-#setup {
-  position:fixed;inset:0;background:linear-gradient(135deg,#667eea,#764ba2);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:24px;z-index:99999;font-family:-apple-system,sans-serif;color:white;
-}
-#setup h2 { font-size:28px;margin-bottom:8px; }
-#setup p { font-size:14px;opacity:.85;text-align:center;margin-bottom:6px;line-height:1.5; }
-#setup a { color:#fde68a;text-decoration:none;font-weight:600; }
-#setup input {
-  width:100%;max-width:360px;padding:14px;border-radius:12px;border:none;
-  font-size:14px;margin:16px 0 8px;outline:none;
-}
-#setup button {
-  width:100%;max-width:360px;padding:14px;border-radius:12px;border:none;
-  background:#fde68a;color:#1e1b4b;font-size:16px;font-weight:700;cursor:pointer;
-}
-#setup .hint { font-size:12px;opacity:.65;margin-top:8px;text-align:center; }
-
+#setup{position:fixed;inset:0;background:linear-gradient(135deg,#667eea,#764ba2);display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;z-index:100000;font-family:-apple-system,sans-serif;color:#fff}
+#setup h2{font-size:26px;margin-bottom:10px}
+#setup p{font-size:14px;opacity:.9;text-align:center;margin-bottom:6px;line-height:1.5}
+#setup a{color:#fde68a;font-weight:700}
+#setup input{width:100%;max-width:360px;padding:14px;border-radius:12px;border:none;font-size:15px;margin:18px 0 10px;outline:none}
+#setup button{width:100%;max-width:360px;padding:14px;border-radius:12px;border:none;background:#fde68a;color:#1e1b4b;font-size:16px;font-weight:700;cursor:pointer}
+#setup .h{font-size:12px;opacity:.7;margin-top:10px}
+#keyfab{position:fixed;bottom:16px;left:16px;width:44px;height:44px;border-radius:50%;border:none;background:rgba(124,58,237,.9);color:#fff;font-size:20px;z-index:9000;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.25)}
 </style>
 </head>
 <body>
 
-<div id="setup" style="display:none">
+<!-- API Key Setup (first run) -->
+<div id="setup">
   <h2>🌸 Sprache</h2>
-  <p>Einmalig einen <strong>Gemini API Key</strong> eingeben.<br>
-  Kostenlos holen unter:<br>
+  <p>Einmalig deinen <b>Gemini API Key</b> eingeben.<br>Kostenlos holen:<br>
   <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com → Get API Key</a></p>
-  <input id="keyInput" type="text" placeholder="AIzaSy..." autocomplete="off" autocorrect="off" spellcheck="false"/>
-  <button onclick="saveKey()">Speichern & starten</button>
-  <p class="hint">Key wird nur auf deinem Gerät gespeichert, nicht hochgeladen.</p>
+  <input id="keyInput" type="text" placeholder="AIzaSy..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <button onclick="saveKey()">Speichern &amp; starten</button>
+  <p class="h">Wird nur lokal auf deinem Gerät gespeichert.</p>
 </div>
-<script>
-function saveKey() {
-  var k = document.getElementById('keyInput').value.trim();
-  if (!k || !k.startsWith('AIza')) {
-    alert('Bitte einen gültigen Gemini Key eingeben (beginnt mit AIza...)');
-    return;
-  }
-  localStorage.setItem('sp3_gemini_key', k);
-  window.location.reload();
-}
-</script>
 
 <div id="splash"><h1>🌸</h1><div class="ring"></div><p>Sprache lädt…</p></div>
 <div id="root"></div>
-<script>window.storage={_p:"sp3_",get:async function(k){const v=localStorage.getItem(this._p+k);if(v===null)throw new Error("not found");return{key:k,value:v}},set:async function(k,v){try{localStorage.setItem(this._p+k,String(v));return{key:k,value:v}}catch(e){throw new Error("Storage error")}},delete:async function(k){localStorage.removeItem(this._p+k);return{key:k,deleted:true}},list:async function(p){const keys=[],fp=this._p+(p||"");for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith(fp))keys.push(k.slice(this._p.length))}return{keys}}};</script>
+
+<!-- Floating key button (always available, plain DOM) -->
+<button id="keyfab" onclick="changeKey()" title="API Key ändern">🔑</button>
+
 <script>
-(function() {
-  const existing = localStorage.getItem("sp3_gemini_key");
-  if (!existing) {
-    // Show setup screen instead of using browser prompt
-    window._needsKeySetup = true;
-  }
-})();
+function saveKey(){
+  var k=(document.getElementById('keyInput').value||'').trim();
+  if(!k||k.indexOf('AIza')!==0){alert('Bitte gültigen Gemini Key eingeben (beginnt mit AIza...)');return;}
+  try{localStorage.setItem('sp3_gemini_key',k);}catch(e){alert('Speichern fehlgeschlagen: '+e.message);return;}
+  location.reload();
+}
+function changeKey(){
+  var cur='';try{cur=localStorage.getItem('sp3_gemini_key')||'';}catch(e){}
+  var k=prompt('Gemini API Key (leer = löschen):\nAktuell: '+(cur?cur.slice(0,10)+'…':'(keiner)'),cur);
+  if(k===null)return;
+  k=k.trim();
+  if(!k){localStorage.removeItem('sp3_gemini_key');alert('Key gelöscht.');location.reload();return;}
+  if(k.indexOf('AIza')!==0){alert('Ungültig (muss mit AIza beginnen).');return;}
+  localStorage.setItem('sp3_gemini_key',k);alert('Key gespeichert ✓');location.reload();
+}
 </script>
+
+<script>window.storage={_p:"sp3_",get:async function(k){const v=localStorage.getItem(this._p+k);if(v===null)throw new Error("not found");return{key:k,value:v}},set:async function(k,v){try{localStorage.setItem(this._p+k,String(v));return{key:k,value:v}}catch(e){throw new Error("Storage error")}},delete:async function(k){localStorage.removeItem(this._p+k);return{key:k,deleted:true}},list:async function(p){const keys=[],fp=this._p+(p||"");for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith(fp))keys.push(k.slice(this._p.length))}return{keys}}};</script>
 <script>/**
  * @license React
  * react.production.min.js
@@ -377,43 +368,57 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
 <script>
 
 async function _llm_(opts) {
-  const gk = localStorage.getItem("sp3_gemini_key") || "AIzaSyCRnRvjuoeRhGUSICLSF5cKPBtDIHi_yr0";
-  const ak = localStorage.getItem("sp3_anthropic_key") || "";
-  
-  let body;
-  try { body = JSON.parse(opts.body); } catch(e) { body = {}; }
-  const msgs = body.messages || [];
-  const sys = body.system || null;
-  const maxT = body.max_tokens || 1000;
+  var gk = "";
+  try { gk = localStorage.getItem("sp3_gemini_key") || ""; } catch(e) {}
+  var ak = "";
+  try { ak = localStorage.getItem("sp3_anthropic_key") || ""; } catch(e) {}
+
+  var body = {};
+  try { body = JSON.parse(opts.body); } catch(e) {}
+  var msgs = body.messages || [];
+  var sys = body.system || null;
+  var maxT = body.max_tokens || 1000;
 
   if (gk) {
-    const contents = msgs.map(m => ({
-      role: m.role === "assistant" ? "model" : "user",
-      parts: [{ text: typeof m.content === "string" ? m.content : (m.content?.[0]?.text || "") }]
-    }));
-    if (!contents.length) contents.push({ role: "user", parts: [{ text: "hi" }] });
-    const gb = { contents, generationConfig: { maxOutputTokens: Math.min(maxT, 8192) } };
+    var contents = msgs.map(function(m){
+      return {
+        role: m.role === "assistant" ? "model" : "user",
+        parts: [{ text: typeof m.content === "string" ? m.content : ((m.content && m.content[0] && m.content[0].text) || "") }]
+      };
+    });
+    if (!contents.length) contents.push({ role:"user", parts:[{text:"hi"}] });
+    var gb = { contents: contents, generationConfig: { maxOutputTokens: Math.min(maxT, 8192) } };
     if (sys) gb.systemInstruction = { parts: [{ text: sys }] };
-    const gemUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + gk;
+    var gemUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + gk;
     try {
-      const gr = await fetch(gemUrl, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(gb) });
+      var gr = await fetch(gemUrl, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(gb) });
+      var gd = await gr.json().catch(function(){ return {}; });
       if (gr.ok) {
-        const gd = await gr.json();
-        const txt = gd?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-        return { ok:true, status:200, json: async () => ({ content:[{type:"text",text:txt}], stop_reason:"end_turn" }) };
+        var cand = gd && gd.candidates && gd.candidates[0];
+        var txt = (cand && cand.content && cand.content.parts && cand.content.parts[0] && cand.content.parts[0].text) || "";
+        if (!txt && cand && cand.finishReason) {
+          return { ok:false, status:422, json: async function(){ return { error:{ type:"api_error", message:"Gemini blockiert ("+cand.finishReason+")" } }; } };
+        }
+        return { ok:true, status:200, json: async function(){ return { content:[{type:"text",text:txt}], stop_reason:"end_turn" }; } };
       }
-      if (gr.status === 429) return { ok:false, status:429, json: async () => ({ error:{type:"rate_limit_error",message:"⏳ Rate Limit — 1 Minute warten"} }) };
-      const eb = await gr.json().catch(()=>({}));
-      return { ok:false, status:gr.status, json: async () => ({ error:{type:"api_error",message:"Gemini: "+(eb?.error?.message||gr.status)} }) };
+      var emsg = (gd && gd.error && gd.error.message) || ("HTTP "+gr.status);
+      if (gr.status === 429) emsg = "Rate Limit (Gemini) — kurz warten oder neuen Key";
+      if (gr.status === 400 && /API key not valid|API_KEY_INVALID/i.test(emsg)) emsg = "Key ungültig — bitte neuen Gemini Key eingeben";
+      if (gr.status === 403) emsg = "Key gesperrt/ungültig — bitte neuen Gemini Key eingeben";
+      return { ok:false, status:gr.status, json: async function(){ return { error:{ type:"api_error", message: emsg } }; } };
     } catch(e) {
-      return { ok:false, status:503, json: async () => ({ error:{type:"network_error",message:"Netzwerkfehler: "+e.message} }) };
+      return { ok:false, status:503, json: async function(){ return { error:{ type:"network_error", message:"Netzwerk/CORS Fehler: "+e.message } }; } };
     }
   }
+
   if (ak) {
-    const r = await fetch("https://api.anthropic.com/v1/messages", { ...opts, headers:{...((opts||{}).headers||{}),"x-api-key":ak,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"} });
-    return r;
+    return await fetch("https://api.anthropic.com/v1/messages", {
+      method: opts.method, body: opts.body,
+      headers: { "Content-Type":"application/json", "x-api-key":ak, "anthropic-version":"2023-06-01", "anthropic-dangerous-direct-browser-access":"true" }
+    });
   }
-  return { ok:false, status:401, json: async () => ({ error:{type:"auth_error",message:"Kein API Key"} }) };
+
+  return { ok:false, status:401, json: async function(){ return { error:{ type:"auth_error", message:"Kein API Key gesetzt — bitte Gemini Key im Setup eingeben" } }; } };
 }
 
 const {
@@ -6705,15 +6710,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(
 
 </script>
 <script>
+// hide splash once React renders
 var _t=setInterval(function(){var r=document.getElementById('root');if(r&&r.firstChild){var s=document.getElementById('splash');if(s){s.style.opacity='0';setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s);},450);}clearInterval(_t);}},80);
 setTimeout(function(){clearInterval(_t);var s=document.getElementById('splash');if(s){s.style.opacity='0';setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s);},450);}},10000);
-</script>
-<script>
-// Check AFTER everything loaded - show setup if no key
-if (!localStorage.getItem('sp3_gemini_key')) {
-  document.getElementById('setup').style.display = 'flex';
-  document.getElementById('splash').style.display = 'none';
-}
+// show setup if no key (runs last, after everything)
+(function(){var has='';try{has=localStorage.getItem('sp3_gemini_key')||'';}catch(e){}
+if(!has){document.getElementById('setup').style.display='flex';var s=document.getElementById('splash');if(s)s.style.display='none';}})();
 </script>
 </body>
 </html>
