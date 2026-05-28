@@ -389,7 +389,7 @@ async function _llm_(opts) {
     if (!contents.length) contents.push({ role:"user", parts:[{text:"hi"}] });
     var gb = { contents: contents, generationConfig: { maxOutputTokens: Math.min(maxT, 8192) } };
     if (sys) gb.systemInstruction = { parts: [{ text: sys }] };
-    var gemUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + gk;
+    var gemUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + gk;
     try {
       var gr = await fetch(gemUrl, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(gb) });
       var gd = await gr.json().catch(function(){ return {}; });
