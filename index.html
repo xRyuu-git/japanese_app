@@ -1,71 +1,9 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#7c3aed">
-<title>Sprache</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;background:#fff}
-#root{min-height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch}
-#splash{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;z-index:9999;font-family:-apple-system,sans-serif;transition:opacity .4s}
-#splash h1{font-size:52px;line-height:1}#splash p{font-size:14px;opacity:.85}
-.ring{width:34px;height:34px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-button:active{transform:scale(0.97)}ruby{ruby-align:center}rt{font-size:.6em;line-height:1.5;text-align:center}
-::selection{background:#8b5cf6;color:#fff}::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:rgba(127,127,127,.3);border-radius:3px}
-#setup{position:fixed;inset:0;background:linear-gradient(135deg,#667eea,#764ba2);display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;z-index:100000;font-family:-apple-system,sans-serif;color:#fff}
-#setup h2{font-size:26px;margin-bottom:10px}
-#setup p{font-size:14px;opacity:.9;text-align:center;margin-bottom:6px;line-height:1.5}
-#setup a{color:#fde68a;font-weight:700}
-#setup input{width:100%;max-width:360px;padding:14px;border-radius:12px;border:none;font-size:15px;margin:18px 0 10px;outline:none}
-#setup button{width:100%;max-width:360px;padding:14px;border-radius:12px;border:none;background:#fde68a;color:#1e1b4b;font-size:16px;font-weight:700;cursor:pointer}
-#setup .h{font-size:12px;opacity:.7;margin-top:10px}
-#keyfab{position:fixed;bottom:16px;left:16px;width:44px;height:44px;border-radius:50%;border:none;background:rgba(124,58,237,.9);color:#fff;font-size:20px;z-index:9000;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.25)}
-</style>
-</head>
-<body>
-
-<!-- API Key Setup (first run) -->
-<div id="setup">
-  <h2>🌸 Sprache</h2>
-  <p>Einmalig deinen <b>Gemini API Key</b> eingeben.<br>Kostenlos holen:<br>
-  <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com → Get API Key</a></p>
-  <input id="keyInput" type="text" placeholder="AIzaSy..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-  <button onclick="saveKey()">Speichern &amp; starten</button>
-  <p class="h">Wird nur lokal auf deinem Gerät gespeichert.</p>
-</div>
-
-<div id="splash"><h1>🌸</h1><div class="ring"></div><p>Sprache lädt…</p></div>
-<div id="root"></div>
-
-<!-- Floating key button (always available, plain DOM) -->
-<button id="keyfab" onclick="changeKey()" title="API Key ändern">🔑</button>
-
-<script>
-function saveKey(){
-  var k=(document.getElementById('keyInput').value||'').trim();
-  if(!k||k.indexOf('AIza')!==0){alert('Bitte gültigen Gemini Key eingeben (beginnt mit AIza...)');return;}
-  try{localStorage.setItem('sp3_gemini_key',k);}catch(e){alert('Speichern fehlgeschlagen: '+e.message);return;}
-  location.reload();
-}
-function changeKey(){
-  var cur='';try{cur=localStorage.getItem('sp3_gemini_key')||'';}catch(e){}
-  var k=prompt('Gemini API Key (leer = löschen):\nAktuell: '+(cur?cur.slice(0,10)+'…':'(keiner)'),cur);
-  if(k===null)return;
-  k=k.trim();
-  if(!k){localStorage.removeItem('sp3_gemini_key');alert('Key gelöscht.');location.reload();return;}
-  if(k.indexOf('AIza')!==0){alert('Ungültig (muss mit AIza beginnen).');return;}
-  localStorage.setItem('sp3_gemini_key',k);alert('Key gespeichert ✓');location.reload();
-}
-</script>
-
-<script>window.storage={_p:"sp3_",get:async function(k){const v=localStorage.getItem(this._p+k);if(v===null)throw new Error("not found");return{key:k,value:v}},set:async function(k,v){try{localStorage.setItem(this._p+k,String(v));return{key:k,value:v}}catch(e){throw new Error("Storage error")}},delete:async function(k){localStorage.removeItem(this._p+k);return{key:k,deleted:true}},list:async function(p){const keys=[],fp=this._p+(p||"");for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith(fp))keys.push(k.slice(this._p.length))}return{keys}}};</script>
-<script>/**
+<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="theme-color" content="#090c12"><title>Sprache</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet"><style>*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}html,body{height:100%;background:#090c12}#root{min-height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch}#splash{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:radial-gradient(circle at 50% 35%,#1a2336,#090c12 70%);color:#eef1f6;z-index:9999;font-family:'Fraunces',Georgia,serif;transition:opacity .45s}#splash .logo{font-size:54px}#splash h1{font-size:30px;font-weight:600;letter-spacing:-.5px;margin-top:-6px}#splash .tag{font-size:12px;opacity:.55;letter-spacing:3px;text-transform:uppercase;font-family:-apple-system,sans-serif}.ring{width:30px;height:30px;border:2.5px solid rgba(255,255,255,.18);border-top-color:#a5b4fc;border-radius:50%;animation:spin .9s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}button:active{transform:scale(0.97)}ruby{ruby-align:center}rt{font-size:.6em;line-height:1.5;text-align:center}::selection{background:#818cf8;color:#fff}::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:3px}#setup{position:fixed;inset:0;background:radial-gradient(circle at 50% 30%,#1a2336,#090c12 70%);display:none;flex-direction:column;align-items:center;justify-content:center;padding:28px;z-index:100000;font-family:-apple-system,sans-serif;color:#eef1f6}#setup .logo{font-size:40px;margin-bottom:4px;font-family:'Fraunces',serif}#setup h2{font-size:24px;font-weight:700;margin-bottom:14px;font-family:'Fraunces',serif}#setup p{font-size:14px;opacity:.8;text-align:center;margin-bottom:6px;line-height:1.55;max-width:340px}#setup a{color:#a5b4fc;font-weight:700;text-decoration:none}#setup input{width:100%;max-width:360px;padding:15px 16px;border-radius:14px;border:1px solid #2a3650;background:#141d30;color:#eef1f6;font-size:16px;margin:20px 0 8px;outline:none}#setup input:focus{border-color:#818cf8}#setup .save{width:100%;max-width:360px;padding:15px;border-radius:14px;border:none;background:#a5b4fc;color:#090c12;font-size:16px;font-weight:700;cursor:pointer}#setup .h{font-size:12px;opacity:.55;margin-top:12px}#keyfab{position:fixed;bottom:96px;left:16px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:rgba(124,58,237,.85);color:#fff;font-size:17px;z-index:9000;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center}</style></head><body><div id="setup"><div class="logo">🌸</div><h2>Sprache</h2><p>Einmalig deinen <b>Gemini API Key</b> eingeben.<br>Kostenlos:<br><a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com → Get API Key</a></p><input id="keyInput" type="text" inputmode="text" placeholder="AIzaSy..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><div id="setupErr" style="color:#fca5a5;font-size:13px;min-height:16px;margin-bottom:6px;text-align:center"></div><button class="save" onclick="saveKey()">Speichern</button><button id="setupDel" onclick="delKey()" style="display:none;background:none;color:#fca5a5;border:none;margin-top:14px;font-size:13px;cursor:pointer">Key löschen</button><p class="h">Nur lokal auf deinem Gerät gespeichert.</p></div><div id="splash"><div class="logo">🌸</div><h1>Sprache</h1><div class="ring"></div><div class="tag">Deutsch · 日本語</div></div><div id="root"></div><button id="keyfab" onclick="changeKey()" title="API Key">🔑</button><script>
+function showErr(m){var e=document.getElementById('setupErr');if(e)e.textContent=m||'';}
+function saveKey(){var k=(document.getElementById('keyInput').value||'').trim();if(!k||k.indexOf('AIza')!==0){showErr('Bitte gültigen Key (beginnt mit AIza...)');return;}try{localStorage.setItem('sp3_gemini_key',k);}catch(e){showErr('Speichern fehlgeschlagen');return;}showErr('');document.getElementById('setup').style.display='none';}
+function changeKey(){var cur='';try{cur=localStorage.getItem('sp3_gemini_key')||'';}catch(e){}document.getElementById('keyInput').value=cur;document.getElementById('setupDel').style.display=cur?'inline-block':'none';showErr('');document.getElementById('setup').style.display='flex';}
+function delKey(){try{localStorage.removeItem('sp3_gemini_key');}catch(e){}document.getElementById('keyInput').value='';showErr('');document.getElementById('setup').style.display='none';}
+</script><script>window.storage={_p:"sp3_",get:async function(k){const v=localStorage.getItem(this._p+k);if(v===null)throw new Error("not found");return{key:k,value:v}},set:async function(k,v){try{localStorage.setItem(this._p+k,String(v));return{key:k,value:v}}catch(e){throw new Error("Storage error")}},delete:async function(k){localStorage.removeItem(this._p+k);return{key:k,deleted:true}},list:async function(p){const keys=[],fp=this._p+(p||"");for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith(fp))keys.push(k.slice(this._p.length))}return{keys}}};</script><script>/**
  * @license React
  * react.production.min.js
  *
@@ -96,8 +34,7 @@ render:a}};c.isValidElement=M;c.lazy=function(a){return{$$typeof:Aa,_payload:{_s
 c.useEffect=function(a,b){return g.current.useEffect(a,b)};c.useId=function(){return g.current.useId()};c.useImperativeHandle=function(a,b,c){return g.current.useImperativeHandle(a,b,c)};c.useInsertionEffect=function(a,b){return g.current.useInsertionEffect(a,b)};c.useLayoutEffect=function(a,b){return g.current.useLayoutEffect(a,b)};c.useMemo=function(a,b){return g.current.useMemo(a,b)};c.useReducer=function(a,b,c){return g.current.useReducer(a,b,c)};c.useRef=function(a){return g.current.useRef(a)};
 c.useState=function(a){return g.current.useState(a)};c.useSyncExternalStore=function(a,b,c){return g.current.useSyncExternalStore(a,b,c)};c.useTransition=function(){return g.current.useTransition()};c.version="18.3.1"});
 })();
-</script>
-<script>/**
+</script><script>/**
  * @license React
  * react-dom.production.min.js
  *
@@ -364,61 +301,34 @@ c,!1,d,e);a[Ja]=b.current;sc(8===a.nodeType?a.parentNode:a);return new Xf(b)};Q.
 var d=null!=c&&c.hydratedSources||null,e=!1,f="",g=aj;null!==c&&void 0!==c&&(!0===c.unstable_strictMode&&(e=!0),void 0!==c.identifierPrefix&&(f=c.identifierPrefix),void 0!==c.onRecoverableError&&(g=c.onRecoverableError));b=Wi(b,null,a,1,null!=c?c:null,e,!1,f,g);a[Ja]=b.current;sc(a);if(d)for(a=0;a<d.length;a++)c=d[a],e=c._getVersion,e=e(c._source),null==b.mutableSourceEagerHydrationData?b.mutableSourceEagerHydrationData=[c,e]:b.mutableSourceEagerHydrationData.push(c,e);return new Ud(b)};Q.render=
 function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmountComponentAtNode=function(a){if(!Vd(a))throw Error(m(40));return a._reactRootContainer?(yb(function(){Wd(null,null,a,!1,function(){a._reactRootContainer=null;a[Ja]=null})}),!0):!1};Q.unstable_batchedUpdates=Tf;Q.unstable_renderSubtreeIntoContainer=function(a,b,c,d){if(!Vd(c))throw Error(m(200));if(null==a||void 0===a._reactInternals)throw Error(m(38));return Wd(a,b,c,!1,d)};Q.version="18.3.1-next-f1338f8080-20240426"});
 })();
-</script>
-<script>
+</script><script>
 
 async function _llm_(opts) {
-  var gk = "";
-  try { gk = localStorage.getItem("sp3_gemini_key") || ""; } catch(e) {}
-  var ak = "";
-  try { ak = localStorage.getItem("sp3_anthropic_key") || ""; } catch(e) {}
-
-  var body = {};
-  try { body = JSON.parse(opts.body); } catch(e) {}
-  var msgs = body.messages || [];
-  var sys = body.system || null;
-  var maxT = body.max_tokens || 1000;
-
-  if (gk) {
-    var contents = msgs.map(function(m){
-      return {
-        role: m.role === "assistant" ? "model" : "user",
-        parts: [{ text: typeof m.content === "string" ? m.content : ((m.content && m.content[0] && m.content[0].text) || "") }]
-      };
-    });
-    if (!contents.length) contents.push({ role:"user", parts:[{text:"hi"}] });
-    var gb = { contents: contents, generationConfig: { maxOutputTokens: Math.min(maxT, 8192) } };
-    if (sys) gb.systemInstruction = { parts: [{ text: sys }] };
-    var gemUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + gk;
-    try {
-      var gr = await fetch(gemUrl, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(gb) });
-      var gd = await gr.json().catch(function(){ return {}; });
-      if (gr.ok) {
-        var cand = gd && gd.candidates && gd.candidates[0];
-        var txt = (cand && cand.content && cand.content.parts && cand.content.parts[0] && cand.content.parts[0].text) || "";
-        if (!txt && cand && cand.finishReason) {
-          return { ok:false, status:422, json: async function(){ return { error:{ type:"api_error", message:"Gemini blockiert ("+cand.finishReason+")" } }; } };
-        }
-        return { ok:true, status:200, json: async function(){ return { content:[{type:"text",text:txt}], stop_reason:"end_turn" }; } };
-      }
-      var emsg = (gd && gd.error && gd.error.message) || ("HTTP "+gr.status);
-      if (gr.status === 429) emsg = "Rate Limit (Gemini) — kurz warten oder neuen Key";
-      if (gr.status === 400 && /API key not valid|API_KEY_INVALID/i.test(emsg)) emsg = "Key ungültig — bitte neuen Gemini Key eingeben";
-      if (gr.status === 403) emsg = "Key gesperrt/ungültig — bitte neuen Gemini Key eingeben";
-      return { ok:false, status:gr.status, json: async function(){ return { error:{ type:"api_error", message: emsg } }; } };
-    } catch(e) {
-      return { ok:false, status:503, json: async function(){ return { error:{ type:"network_error", message:"Netzwerk/CORS Fehler: "+e.message } }; } };
-    }
+  var gk=""; try{gk=localStorage.getItem("sp3_gemini_key")||"";}catch(e){}
+  var ak=""; try{ak=localStorage.getItem("sp3_anthropic_key")||"";}catch(e){}
+  var body={}; try{body=JSON.parse(opts.body);}catch(e){}
+  var msgs=body.messages||[]; var sys=body.system||null; var maxT=body.max_tokens||1000;
+  if(gk){
+    var contents=msgs.map(function(m){return{role:m.role==="assistant"?"model":"user",parts:[{text:typeof m.content==="string"?m.content:((m.content&&m.content[0]&&m.content[0].text)||"")}]};});
+    if(!contents.length)contents.push({role:"user",parts:[{text:"hi"}]});
+    var gb={contents:contents,generationConfig:{maxOutputTokens:Math.min(maxT,8192)}};
+    if(sys)gb.systemInstruction={parts:[{text:sys}]};
+    var url="https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key="+gk;
+    try{
+      var gr=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(gb)});
+      var gd=await gr.json().catch(function(){return{};});
+      if(gr.ok){var c=gd&&gd.candidates&&gd.candidates[0];var t=(c&&c.content&&c.content.parts&&c.content.parts[0]&&c.content.parts[0].text)||"";
+        if(!t&&c&&c.finishReason)return{ok:false,status:422,json:async function(){return{error:{type:"api_error",message:"Gemini blockiert ("+c.finishReason+")"}};}};
+        return{ok:true,status:200,json:async function(){return{content:[{type:"text",text:t}],stop_reason:"end_turn"};}};}
+      var em=(gd&&gd.error&&gd.error.message)||("HTTP "+gr.status);
+      if(gr.status===429)em="Rate Limit (Gemini) — kurz warten oder neuen Key";
+      if(gr.status===400&&/API key not valid|API_KEY_INVALID/i.test(em))em="Key ungültig — bitte neuen Gemini Key eingeben";
+      if(gr.status===403)em="Key gesperrt/ungültig — bitte neuen Gemini Key eingeben";
+      return{ok:false,status:gr.status,json:async function(){return{error:{type:"api_error",message:em}};}};
+    }catch(e){return{ok:false,status:503,json:async function(){return{error:{type:"network_error",message:"Gemini nicht erreichbar ("+e.message+")"}};}};}
   }
-
-  if (ak) {
-    return await fetch("https://api.anthropic.com/v1/messages", {
-      method: opts.method, body: opts.body,
-      headers: { "Content-Type":"application/json", "x-api-key":ak, "anthropic-version":"2023-06-01", "anthropic-dangerous-direct-browser-access":"true" }
-    });
-  }
-
-  return { ok:false, status:401, json: async function(){ return { error:{ type:"auth_error", message:"Kein API Key gesetzt — bitte Gemini Key im Setup eingeben" } }; } };
+  if(ak){return await fetch("https://api.anthropic.com/v1/messages",{method:opts.method,body:opts.body,headers:{"Content-Type":"application/json","x-api-key":ak,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"}});}
+  return{ok:false,status:401,json:async function(){return{error:{type:"auth_error",message:"Kein API Key gesetzt — bitte Gemini Key über den 🔑-Button eingeben"}};}};
 }
 
 const {
@@ -1314,6 +1224,16 @@ function App() {
   const [repeatMode, setRepeatMode] = useState(false);
   const [loopMode, setLoopMode] = useState(false);
   const [showFurigana, setShowFurigana] = useState(false);
+  // Progress tracking (real): seen sentences per topic, daily streak, today's goal
+  const [seenMap, setSeenMap] = useState({}); // { tIdx: [sIdx,...] }
+  const [dayStreak, setDayStreak] = useState(0);
+  const [lastStudyDate, setLastStudyDate] = useState("");
+  const [todayCount, setTodayCount] = useState(0);
+  const [todayDate, setTodayDate] = useState("");
+  const [dailyGoal, setDailyGoal] = useState(20);
+  const [lastPos, setLastPos] = useState(0); // last sentence index in last topic
+  const [navTab, setNavTab] = useState("learn"); // learn | verbs | quiz | more (bottom nav)
+  const [pickerFor, setPickerFor] = useState(null); // "verbs" | "quiz" when choosing a topic
 
   // Level system (A1-C2)
   const [selectedLevel, setSelectedLevel] = useState(null);
@@ -1335,7 +1255,7 @@ function App() {
   const [streak, setStreak] = useState(0);
   const [best, setBest] = useState(0);
   const [animKey, setAnimKey] = useState(0);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   const [showQuickNav, setShowQuickNav] = useState(false);
   const [deVoices, setDeVoices] = useState([]);
   const [jaVoices, setJaVoices] = useState([]);
@@ -1387,28 +1307,44 @@ function App() {
   }, []);
   useEffect(() => {
     const r = document.documentElement;
+    r.style.setProperty("--r-sm", "12px");
+    r.style.setProperty("--r-md", "16px");
+    r.style.setProperty("--r-lg", "22px");
+    r.style.setProperty("--r-full", "100px");
+    r.style.setProperty("--accent", "#818cf8");
+    r.style.setProperty("--accent-bright", "#a5b4fc");
     if (darkMode) {
-      r.style.setProperty("--bg", "#0a0f1c");
-      r.style.setProperty("--card", "#1e293b");
-      r.style.setProperty("--card-alt", "#0f172a");
-      r.style.setProperty("--text", "#f1f5f9");
-      r.style.setProperty("--text-sub", "#94a3b8");
-      r.style.setProperty("--border", "#334155");
-      r.style.setProperty("--subtle", "#0f172a");
-      r.style.setProperty("--accent-soft", "#1e293b");
-      r.style.setProperty("--shadow", "0 4px 16px #00000060");
+      r.style.setProperty("--bg", "#090c12");
+      r.style.setProperty("--card", "rgba(255,255,255,0.05)");
+      r.style.setProperty("--card-alt", "rgba(255,255,255,0.03)");
+      r.style.setProperty("--text", "#eef1f6");
+      r.style.setProperty("--text-sub", "rgba(238,241,246,0.56)");
+      r.style.setProperty("--text-faint", "rgba(238,241,246,0.32)");
+      r.style.setProperty("--border", "rgba(255,255,255,0.09)");
+      r.style.setProperty("--border-bright", "rgba(255,255,255,0.15)");
+      r.style.setProperty("--subtle", "rgba(255,255,255,0.06)");
+      r.style.setProperty("--accent-soft", "rgba(129,140,248,0.16)");
+      r.style.setProperty("--shadow", "0 1px 0 rgba(255,255,255,.05) inset, 0 10px 26px rgba(0,0,0,.4)");
+      r.style.setProperty("--shadow-lg", "0 1px 0 rgba(255,255,255,.06) inset, 0 16px 40px rgba(0,0,0,.5)");
+      document.body.style.backgroundColor = "#090c12";
+      document.body.style.backgroundImage = "radial-gradient(1000px circle at 50% -15%, rgba(129,140,248,0.20), transparent 55%)," + "radial-gradient(700px circle at 88% 8%, rgba(34,211,238,0.09), transparent 50%)," + "radial-gradient(800px circle at 10% 40%, rgba(168,85,247,0.07), transparent 55%)";
+      document.body.style.backgroundAttachment = "fixed";
     } else {
-      r.style.setProperty("--bg", "#f8fafc");
+      r.style.setProperty("--bg", "#f6f7f9");
       r.style.setProperty("--card", "#ffffff");
-      r.style.setProperty("--card-alt", "#f8fafc");
-      r.style.setProperty("--text", "#0f172a");
-      r.style.setProperty("--text-sub", "#64748b");
-      r.style.setProperty("--border", "#e2e8f0");
-      r.style.setProperty("--subtle", "#f1f5f9");
-      r.style.setProperty("--accent-soft", "#f1f5f9");
-      r.style.setProperty("--shadow", "0 4px 20px #0000000d");
+      r.style.setProperty("--card-alt", "#fbfcfd");
+      r.style.setProperty("--text", "#141b2e");
+      r.style.setProperty("--text-sub", "#5f6b80");
+      r.style.setProperty("--text-faint", "#9aa4b6");
+      r.style.setProperty("--border", "#e7eaf0");
+      r.style.setProperty("--border-bright", "#dfe3ea");
+      r.style.setProperty("--subtle", "#f2f4f7");
+      r.style.setProperty("--accent-soft", "rgba(129,140,248,0.12)");
+      r.style.setProperty("--shadow", "0 1px 2px #1b253015, 0 4px 16px #1b253012");
+      r.style.setProperty("--shadow-lg", "0 2px 8px #1b25301a, 0 16px 36px #1b253018");
+      document.body.style.backgroundColor = "#f6f7f9";
+      document.body.style.backgroundImage = "none";
     }
-    document.body.style.background = "var(--bg)";
     document.body.style.color = "var(--text)";
   }, [darkMode]);
   const toggleDark = async () => {
@@ -1487,12 +1423,17 @@ Rules:
       if (!r.ok) {
         const errBody = await r.json().catch(() => ({}));
         const errType = errBody?.error?.type || "";
+        const msg = errBody?.error?.message;
         if (r.status === 429 || errType.includes("rate_limit")) {
-          setAnalyzeErr("⏳ Rate Limit — bitte 1-2 Minuten warten und nochmal versuchen.");
+          setAnalyzeErr("⏳ " + (msg || "Rate Limit — bitte 1-2 Minuten warten und nochmal versuchen."));
+        } else if (r.status === 503 || errType.includes("network")) {
+          setAnalyzeErr("🌐 " + (msg || "Verbindung fehlgeschlagen") + " — In der Claude.ai-Vorschau ist Gemini blockiert; auf der echten Seite (GitHub) testen.");
+        } else if (msg) {
+          setAnalyzeErr("⚠️ " + msg);
         } else if (r.status >= 500) {
-          setAnalyzeErr("🔧 Server-Problem bei Anthropic — kurz warten und nochmal versuchen.");
+          setAnalyzeErr("🔧 Server-Problem — kurz warten und nochmal versuchen.");
         } else {
-          setAnalyzeErr(`API-Fehler ${r.status}: ${errBody?.error?.message || "Unbekannt"}`);
+          setAnalyzeErr(`API-Fehler ${r.status}`);
         }
         setAnalyzing(false);
         return;
@@ -2200,8 +2141,90 @@ Rules:
           }
         }
       } catch (e) {}
+      // Load progress tracking
+      try {
+        const sm = await window.storage.get("track:seenMap");
+        if (sm) setSeenMap(JSON.parse(sm.value) || {});
+      } catch (e) {}
+      try {
+        const ds = await window.storage.get("track:dayStreak");
+        if (ds) setDayStreak(Number(ds.value) || 0);
+      } catch (e) {}
+      try {
+        const lsd = await window.storage.get("track:lastStudyDate");
+        if (lsd) setLastStudyDate(lsd.value);
+      } catch (e) {}
+      try {
+        const tc = await window.storage.get("track:todayCount");
+        if (tc) setTodayCount(Number(tc.value) || 0);
+      } catch (e) {}
+      try {
+        const td = await window.storage.get("track:todayDate");
+        if (td) setTodayDate(td.value);
+      } catch (e) {}
+      try {
+        const dg = await window.storage.get("track:dailyGoal");
+        if (dg) setDailyGoal(Number(dg.value) || 20);
+      } catch (e) {}
+      try {
+        const lp = await window.storage.get("track:lastPos");
+        if (lp) setLastPos(Number(lp.value) || 0);
+      } catch (e) {}
     })();
   }, []);
+
+  // Record a viewed sentence: updates seen-set, daily count, and consecutive-day streak
+  const markSeen = (ti, si) => {
+    const today = new Date().toISOString().slice(0, 10);
+    setSeenMap(prev => {
+      const arr = prev[ti] || [];
+      if (arr.includes(si)) return prev;
+      const next = {
+        ...prev,
+        [ti]: [...arr, si]
+      };
+      window.storage.set("track:seenMap", JSON.stringify(next)).catch(() => {});
+      return next;
+    });
+    setTodayDate(prevDate => {
+      if (prevDate !== today) {
+        // new day: roll streak then reset today's count
+        setDayStreak(prevStreak => {
+          const yest = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+          const ns = lastStudyDate === yest ? prevStreak + 1 : 1;
+          window.storage.set("track:dayStreak", String(ns)).catch(() => {});
+          return ns;
+        });
+        setLastStudyDate(today);
+        window.storage.set("track:lastStudyDate", today).catch(() => {});
+        setTodayCount(1);
+        window.storage.set("track:todayCount", "1").catch(() => {});
+        window.storage.set("track:todayDate", today).catch(() => {});
+        return today;
+      }
+      setTodayCount(c => {
+        const n = c + 1;
+        window.storage.set("track:todayCount", String(n)).catch(() => {});
+        return n;
+      });
+      return prevDate;
+    });
+  };
+  const topicSeenCount = ti => (seenMap[ti] || []).length;
+  const totalSeen = () => Object.values(seenMap).reduce((a, arr) => a + arr.length, 0);
+  useEffect(() => {
+    window.storage.set("track:lastPos", String(lastPos)).catch(() => {});
+  }, [lastPos]);
+  useEffect(() => {
+    window.storage.set("track:dailyGoal", String(dailyGoal)).catch(() => {});
+  }, [dailyGoal]);
+  // Hook: mark current study sentence as seen
+  useEffect(() => {
+    if (screen === "study") {
+      markSeen(tIdx, sIdx);
+      setLastPos(sIdx);
+    }
+  }, [screen, tIdx, sIdx]);
 
   // Auto-save preferences
   useEffect(() => {
@@ -2671,6 +2694,8 @@ STRICT Rules:
     setTIdx(i);
     setSIdx(0);
     setRevealed(false);
+    setNavTab("learn");
+    setPickerFor(null);
     setScreen("topic");
   };
   const goStudy = i => {
@@ -2757,6 +2782,47 @@ STRICT Rules:
     onClick: toggleDark,
     title: "Dark/Light Mode"
   }, darkMode ? "☀️" : "🌙");
+
+  // ── Bottom navigation (global) ──────────────────────────
+  const goNavTab = tab => {
+    stopPlay();
+    setNavTab(tab);
+    setPickerFor(tab === "verbs" || tab === "quiz" ? tab : null);
+    setScreen("menu");
+  };
+  const renderBottomNav = () => {
+    const items = [{
+      id: "learn",
+      icon: "📖",
+      label: "Lernen"
+    }, {
+      id: "verbs",
+      icon: "🈷️",
+      label: "Verben"
+    }, {
+      id: "quiz",
+      icon: "✦",
+      label: "Quiz"
+    }, {
+      id: "more",
+      icon: "⋯",
+      label: "Mehr"
+    }];
+    return /*#__PURE__*/React.createElement("div", {
+      style: S.bnav
+    }, /*#__PURE__*/React.createElement("div", {
+      style: S.bnavInner
+    }, items.map(it => /*#__PURE__*/React.createElement("button", {
+      key: it.id,
+      style: {
+        ...S.bnavItem,
+        ...(navTab === it.id ? S.bnavItemOn : {})
+      },
+      onClick: () => goNavTab(it.id)
+    }, /*#__PURE__*/React.createElement("span", {
+      style: S.bnavIcon
+    }, it.icon), it.label))));
+  };
 
   // ── Backup / Restore (manual safety net for storage) ────
   const exportProgress = async () => {
@@ -2978,104 +3044,260 @@ STRICT Rules:
   }, darkMode ? "☀️" : "🌙"))));
 
   // ── MENU ─────────────────────────────────────────────────
-  if (screen === "menu") return /*#__PURE__*/React.createElement("div", {
-    style: S.page,
-    "data-page": "menu"
-  }, renderThemeFab(), /*#__PURE__*/React.createElement("div", {
-    style: S.menuHead
-  }, /*#__PURE__*/React.createElement("div", {
-    style: S.flags
-  }, "\uD83C\uDDE9\uD83C\uDDEA \xD7 \uD83C\uDDEF\uD83C\uDDF5"), /*#__PURE__*/React.createElement("h1", {
-    style: S.title
-  }, "Sprache"), /*#__PURE__*/React.createElement("p", {
-    style: S.sub
-  }, TOPICS.reduce((a, t) => a + t.sentences.length, 0), " S\xE4tze \xB7 ", TOPICS.length, " Themen")), /*#__PURE__*/React.createElement("div", {
-    style: S.topicList
-  }, TOPICS.map((t, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    style: {
-      ...S.topicRow,
-      borderColor: t.color,
-      background: t.bg
-    },
-    onClick: () => goTopic(i)
-  }, /*#__PURE__*/React.createElement("span", {
-    style: S.tEmoji
-  }, t.emoji), /*#__PURE__*/React.createElement("div", {
-    style: S.tText
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      ...S.tDE,
-      color: t.color
+  if (screen === "menu") {
+    const hr = new Date().getHours();
+    const greeting = hr < 11 ? "Guten Morgen" : hr < 18 ? "Guten Tag" : "Guten Abend";
+    const greetEmoji = hr < 11 ? "☀️" : hr < 18 ? "🌤️" : "🌙";
+    const topicTotal = i => TOPICS[i].sentences.length + (TOPIC_EXTRA_SENTENCES[i] || []).length;
+    const pct = Math.min(100, Math.round(todayCount / Math.max(1, dailyGoal) * 100));
+    const ringOff = (201 - 201 * pct / 100).toFixed(1);
+    const cont = TOPICS[tIdx];
+
+    // ── topic grid (shared by learn / verbs-picker / quiz-picker) ──
+    const topicGrid = onPick => /*#__PURE__*/React.createElement("div", {
+      style: S.grid
+    }, TOPICS.map((t, i) => {
+      const seen = topicSeenCount(i),
+        tot = topicTotal(i);
+      const p = Math.min(100, Math.round(seen / tot * 100));
+      return /*#__PURE__*/React.createElement("div", {
+        key: i,
+        style: S.tile,
+        onClick: () => onPick(i)
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          ...S.tileGlow,
+          background: t.color
+        }
+      }), /*#__PURE__*/React.createElement("div", {
+        style: {
+          ...S.tileIc,
+          background: t.color + "28",
+          color: t.color
+        }
+      }, t.emoji), /*#__PURE__*/React.createElement("div", {
+        style: S.tileName
+      }, t.nameDE), /*#__PURE__*/React.createElement("div", {
+        style: S.tileJa
+      }, t.nameJA), /*#__PURE__*/React.createElement("div", {
+        style: S.tilePbar
+      }, /*#__PURE__*/React.createElement("i", {
+        style: {
+          width: p + "%",
+          background: t.color,
+          position: "absolute",
+          left: 0,
+          top: 0,
+          height: 5,
+          borderRadius: 3
+        }
+      })), /*#__PURE__*/React.createElement("div", {
+        style: S.tilePn
+      }, seen, " / ", tot));
+    }));
+
+    // ── VERBEN / QUIZ topic picker ──
+    if (navTab === "verbs" || navTab === "quiz") {
+      const isQuiz = navTab === "quiz";
+      return /*#__PURE__*/React.createElement("div", {
+        style: S.page,
+        "data-page": "menu"
+      }, renderThemeFab(), /*#__PURE__*/React.createElement("div", {
+        style: {
+          paddingTop: 8,
+          paddingBottom: 6
+        }
+      }, /*#__PURE__*/React.createElement("h1", {
+        style: {
+          ...S.title,
+          fontSize: 34
+        }
+      }, isQuiz ? "Quiz" : "Verben"), /*#__PURE__*/React.createElement("p", {
+        style: S.sub
+      }, "Thema w\xE4hlen")), topicGrid(i => {
+        setTIdx(i);
+        tIdxRef.current = i;
+        if (isQuiz) {
+          startQuiz(i, quizDir);
+        } else {
+          setVerbIdx(0);
+          setVerbRevealed(false);
+          setVerbExampleIdx(0);
+          setScreen("verbs");
+          if (!topicVerbs[i]) extractVerbs(i);
+        }
+      }), /*#__PURE__*/React.createElement("div", {
+        style: {
+          height: 100
+        }
+      }), renderBottomNav());
     }
-  }, t.nameDE), /*#__PURE__*/React.createElement("div", {
-    style: S.tJA
-  }, t.nameJA)), /*#__PURE__*/React.createElement("div", {
-    style: {
-      ...S.tCount,
-      color: t.color
+
+    // ── MEHR (tools + backup) ──
+    if (navTab === "more") {
+      return /*#__PURE__*/React.createElement("div", {
+        style: S.page,
+        "data-page": "menu"
+      }, renderThemeFab(), /*#__PURE__*/React.createElement("div", {
+        style: {
+          paddingTop: 8,
+          paddingBottom: 14
+        }
+      }, /*#__PURE__*/React.createElement("h1", {
+        style: {
+          ...S.title,
+          fontSize: 34
+        }
+      }, "Mehr"), /*#__PURE__*/React.createElement("p", {
+        style: S.sub
+      }, "Werkzeuge & Einstellungen")), /*#__PURE__*/React.createElement("div", {
+        style: S.toolGrid
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          ...S.toolCard,
+          background: "linear-gradient(135deg,#6366f1,#8b5cf6)"
+        },
+        onClick: () => setScreen("partner")
+      }, /*#__PURE__*/React.createElement("span", {
+        style: S.toolIcon
+      }, "\uD83D\uDCAC"), /*#__PURE__*/React.createElement("div", {
+        style: S.toolName
+      }, "Partner-Chat"), /*#__PURE__*/React.createElement("div", {
+        style: S.toolDesc
+      }, "Frei sprechen mit Claude")), /*#__PURE__*/React.createElement("div", {
+        style: {
+          ...S.toolCard,
+          background: "linear-gradient(135deg,#ec4899,#f59e0b)"
+        },
+        onClick: () => setScreen("generate")
+      }, /*#__PURE__*/React.createElement("span", {
+        style: S.toolIcon
+      }, "\u2728"), /*#__PURE__*/React.createElement("div", {
+        style: S.toolName
+      }, "Satz-Generator"), /*#__PURE__*/React.createElement("div", {
+        style: S.toolDesc
+      }, "Eigene S\xE4tze erstellen")), /*#__PURE__*/React.createElement("div", {
+        style: {
+          ...S.toolCard,
+          background: "linear-gradient(135deg,#0ea5e9,#06b6d4)",
+          gridColumn: "1 / -1"
+        },
+        onClick: () => setScreen("wanikani")
+      }, /*#__PURE__*/React.createElement("span", {
+        style: S.toolIcon
+      }, "\uD83C\uDF8C"), /*#__PURE__*/React.createElement("div", {
+        style: S.toolName
+      }, "WaniKani ", wkUser && "· verbunden"), /*#__PURE__*/React.createElement("div", {
+        style: S.toolDesc
+      }, wkUser ? `Level ${wkUser.level} · ${Object.keys(wkAssignments).length} Kanji im Lernpfad` : "Verbinde dein Konto für Kanji-Färbung"))), /*#__PURE__*/React.createElement("div", {
+        style: S.backupBox
+      }, /*#__PURE__*/React.createElement("div", {
+        style: S.backupTitle
+      }, "\uD83D\uDCBE Fortschritt sichern"), /*#__PURE__*/React.createElement("div", {
+        style: S.backupDesc
+      }, "Falls dein Fortschritt verschwindet, mache regelm\xE4\xDFig ein Backup."), /*#__PURE__*/React.createElement("div", {
+        style: S.backupBtns
+      }, /*#__PURE__*/React.createElement("button", {
+        style: S.backupBtn,
+        onClick: exportProgress
+      }, "\uD83D\uDCE4 Exportieren"), /*#__PURE__*/React.createElement("button", {
+        style: S.backupBtn,
+        onClick: importProgress
+      }, "\uD83D\uDCE5 Importieren"))), /*#__PURE__*/React.createElement("div", {
+        style: {
+          height: 100
+        }
+      }), renderBottomNav());
     }
-  }, t.sentences.length), /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: t.color,
-      fontSize: 18
-    }
-  }, "\u203A")))), /*#__PURE__*/React.createElement("div", {
-    style: S.toolsHead
-  }, "\u2726 Tools \u2726"), /*#__PURE__*/React.createElement("div", {
-    style: S.toolGrid
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      ...S.toolCard,
-      background: "linear-gradient(135deg,#6366f1,#8b5cf6)"
-    },
-    onClick: () => setScreen("partner")
-  }, /*#__PURE__*/React.createElement("span", {
-    style: S.toolIcon
-  }, "\uD83D\uDCAC"), /*#__PURE__*/React.createElement("div", {
-    style: S.toolName
-  }, "Partner-Chat"), /*#__PURE__*/React.createElement("div", {
-    style: S.toolDesc
-  }, "Frei sprechen mit Claude")), /*#__PURE__*/React.createElement("div", {
-    style: {
-      ...S.toolCard,
-      background: "linear-gradient(135deg,#ec4899,#f59e0b)"
-    },
-    onClick: () => setScreen("generate")
-  }, /*#__PURE__*/React.createElement("span", {
-    style: S.toolIcon
-  }, "\u2728"), /*#__PURE__*/React.createElement("div", {
-    style: S.toolName
-  }, "Satz-Generator"), /*#__PURE__*/React.createElement("div", {
-    style: S.toolDesc
-  }, "Eigene S\xE4tze erstellen")), /*#__PURE__*/React.createElement("div", {
-    style: {
-      ...S.toolCard,
-      background: "linear-gradient(135deg,#0ea5e9,#06b6d4)",
-      gridColumn: "1 / -1"
-    },
-    onClick: () => setScreen("wanikani")
-  }, /*#__PURE__*/React.createElement("span", {
-    style: S.toolIcon
-  }, "\uD83C\uDF8C"), /*#__PURE__*/React.createElement("div", {
-    style: S.toolName
-  }, "WaniKani ", wkUser && "· verbunden"), /*#__PURE__*/React.createElement("div", {
-    style: S.toolDesc
-  }, wkUser ? `Level ${wkUser.level} · ${Object.keys(wkAssignments).length} Kanji im Lernpfad` : "Verbinde dein Konto für Kanji-Färbung"))), /*#__PURE__*/React.createElement("div", {
-    style: S.backupBox
-  }, /*#__PURE__*/React.createElement("div", {
-    style: S.backupTitle
-  }, "\uD83D\uDCBE Fortschritt sichern"), /*#__PURE__*/React.createElement("div", {
-    style: S.backupDesc
-  }, "Falls dein Fortschritt verschwindet, mache regelm\xE4\xDFig ein Backup."), /*#__PURE__*/React.createElement("div", {
-    style: S.backupBtns
-  }, /*#__PURE__*/React.createElement("button", {
-    style: S.backupBtn,
-    onClick: exportProgress
-  }, "\uD83D\uDCE4 Exportieren"), /*#__PURE__*/React.createElement("button", {
-    style: S.backupBtn,
-    onClick: importProgress
-  }, "\uD83D\uDCE5 Importieren"))));
+
+    // ── LERNEN (dashboard) ──
+    return /*#__PURE__*/React.createElement("div", {
+      style: S.page,
+      "data-page": "menu"
+    }, renderThemeFab(), /*#__PURE__*/React.createElement("div", {
+      style: S.dashTop
+    }, /*#__PURE__*/React.createElement("div", {
+      style: S.greet
+    }, greeting, " ", greetEmoji, /*#__PURE__*/React.createElement("b", {
+      style: S.greetName
+    }, "Sprache"))), /*#__PURE__*/React.createElement("div", {
+      style: S.hero
+    }, /*#__PURE__*/React.createElement("div", {
+      style: S.ringWrap
+    }, /*#__PURE__*/React.createElement("svg", {
+      width: "74",
+      height: "74",
+      style: {
+        transform: "rotate(-90deg)"
+      }
+    }, /*#__PURE__*/React.createElement("circle", {
+      cx: "37",
+      cy: "37",
+      r: "32",
+      stroke: "rgba(255,255,255,.14)",
+      strokeWidth: "6",
+      fill: "none"
+    }), /*#__PURE__*/React.createElement("circle", {
+      cx: "37",
+      cy: "37",
+      r: "32",
+      stroke: "var(--accent-bright)",
+      strokeWidth: "6",
+      fill: "none",
+      strokeLinecap: "round",
+      strokeDasharray: "201",
+      strokeDashoffset: ringOff
+    })), /*#__PURE__*/React.createElement("div", {
+      style: S.ringPct
+    }, /*#__PURE__*/React.createElement("b", {
+      style: S.ringNum
+    }, todayCount), /*#__PURE__*/React.createElement("span", {
+      style: S.ringSub
+    }, "/ ", dailyGoal, " heute"))), /*#__PURE__*/React.createElement("div", {
+      style: S.heroStats
+    }, /*#__PURE__*/React.createElement("div", {
+      style: S.heroStat
+    }, /*#__PURE__*/React.createElement("span", {
+      style: S.heroV
+    }, "\uD83D\uDD25 ", dayStreak), /*#__PURE__*/React.createElement("span", {
+      style: S.heroK
+    }, "Tage Streak")), /*#__PURE__*/React.createElement("div", {
+      style: S.heroStat
+    }, /*#__PURE__*/React.createElement("span", {
+      style: S.heroV
+    }, totalSeen()), /*#__PURE__*/React.createElement("span", {
+      style: S.heroK
+    }, "S\xE4tze gelernt")))), /*#__PURE__*/React.createElement("div", {
+      style: S.contCard,
+      onClick: () => {
+        setSIdx(lastPos);
+        setRevealed(false);
+        setScreen("study");
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        ...S.contIc,
+        background: cont.color + "28",
+        color: cont.color
+      }
+    }, cont.emoji), /*#__PURE__*/React.createElement("div", {
+      style: S.contTx
+    }, /*#__PURE__*/React.createElement("div", {
+      style: S.contE
+    }, "Weiter lernen"), /*#__PURE__*/React.createElement("div", {
+      style: S.contN
+    }, cont.nameDE, " \xB7 Satz ", lastPos + 1)), /*#__PURE__*/React.createElement("button", {
+      style: S.contGo
+    }, "\u25B6")), /*#__PURE__*/React.createElement("div", {
+      style: S.secHead
+    }, /*#__PURE__*/React.createElement("h3", {
+      style: S.secH
+    }, "Themen")), topicGrid(i => goTopic(i)), /*#__PURE__*/React.createElement("div", {
+      style: {
+        height: 100
+      }
+    }), renderBottomNav());
+  }
 
   // ── TOPIC ─────────────────────────────────────────────────
   if (screen === "topic") return /*#__PURE__*/React.createElement("div", {
@@ -3084,7 +3306,7 @@ STRICT Rules:
   }, renderThemeFab(), /*#__PURE__*/React.createElement("button", {
     style: S.back,
     onClick: () => setScreen("menu")
-  }, "\u2190 Men\xFC"), /*#__PURE__*/React.createElement("div", {
+  }, "\u2190"), /*#__PURE__*/React.createElement("div", {
     style: S.topicHead
   }, /*#__PURE__*/React.createElement("span", {
     style: {
@@ -3267,9 +3489,10 @@ STRICT Rules:
         stopPlay();
         setScreen("topic");
       }
-    }, "\u2190 Thema"), /*#__PURE__*/React.createElement("span", {
+    }, "\u2190"), /*#__PURE__*/React.createElement("span", {
       style: {
         ...S.badge,
+        ...S.badgeIcon,
         background: accent
       }
     }, topic.emoji), /*#__PURE__*/React.createElement("button", {
@@ -3416,7 +3639,7 @@ STRICT Rules:
         borderColor: accent + "55"
       },
       onClick: () => setShowVoices(v => !v)
-    }, "\uD83C\uDF99\uFE0F Stimmen ausw\xE4hlen ", showVoices ? "▲" : "▼"), showVoices && /*#__PURE__*/React.createElement("div", {
+    }, "\uD83C\uDF99\uFE0F Stimmen ", showVoices ? "▲" : "▼"), showVoices && /*#__PURE__*/React.createElement("div", {
       style: S.voicePanel
     }, /*#__PURE__*/React.createElement("div", {
       style: S.voiceRow
@@ -3533,7 +3756,7 @@ STRICT Rules:
         };
         speechSynthesis.speak(u1);
       }
-    }, "\u25B6 Testen")), /*#__PURE__*/React.createElement("p", {
+    }, "\u25B6")), /*#__PURE__*/React.createElement("p", {
       style: {
         fontSize: 11,
         color: "#94a3b8",
@@ -3844,7 +4067,7 @@ STRICT Rules:
     }, /*#__PURE__*/React.createElement("button", {
       style: S.back,
       onClick: () => setScreen("menu")
-    }, "\u2190 Men\xFC"), /*#__PURE__*/React.createElement("span", {
+    }, "\u2190"), /*#__PURE__*/React.createElement("span", {
       style: {
         ...S.badge,
         background: "#0ea5e9"
@@ -3860,7 +4083,7 @@ STRICT Rules:
         setWkManualMode(false);
         setWkSyncStatus("");
       }
-    }, "\u2190 Zur\xFCck"), /*#__PURE__*/React.createElement("h2", {
+    }, "\u2190"), /*#__PURE__*/React.createElement("h2", {
       style: {
         margin: "6px 0 8px",
         color: "#0f172a",
@@ -4077,7 +4300,7 @@ STRICT Rules:
   }, /*#__PURE__*/React.createElement("button", {
     style: S.back,
     onClick: () => setScreen("menu")
-  }, "\u2190 Men\xFC"), /*#__PURE__*/React.createElement("span", {
+  }, "\u2190"), /*#__PURE__*/React.createElement("span", {
     style: {
       ...S.badge,
       background: "#8b5cf6"
@@ -4175,7 +4398,7 @@ STRICT Rules:
   }, /*#__PURE__*/React.createElement("button", {
     style: S.back,
     onClick: () => setScreen("menu")
-  }, "\u2190 Men\xFC"), /*#__PURE__*/React.createElement("span", {
+  }, "\u2190"), /*#__PURE__*/React.createElement("span", {
     style: {
       ...S.badge,
       background: "#ec4899"
@@ -4226,7 +4449,7 @@ STRICT Rules:
     },
     onClick: generate,
     disabled: !genTopic.trim() || genLoading
-  }, genLoading ? "Generiere..." : "✨ 6 Sätze generieren")), genLoading && /*#__PURE__*/React.createElement("div", {
+  }, genLoading ? "Generiere…" : "✨ 6 neue Sätze")), genLoading && /*#__PURE__*/React.createElement("div", {
     style: {
       ...S.analyzing,
       marginTop: 16
@@ -4297,7 +4520,7 @@ STRICT Rules:
         speechSynthesis.cancel();
         setScreen("topic");
       }
-    }, "\u2190 Thema"), /*#__PURE__*/React.createElement("span", {
+    }, "\u2190"), /*#__PURE__*/React.createElement("span", {
       style: {
         ...S.badge,
         background: "#ec4899"
@@ -4592,9 +4815,10 @@ STRICT Rules:
     }, /*#__PURE__*/React.createElement("button", {
       style: S.back,
       onClick: () => setScreen("topic")
-    }, "\u2190 Thema"), /*#__PURE__*/React.createElement("span", {
+    }, "\u2190"), /*#__PURE__*/React.createElement("span", {
       style: {
         ...S.badge,
+        ...S.badgeIcon,
         background: accent
       }
     }, topic.emoji), quizLevel && /*#__PURE__*/React.createElement("span", {
@@ -4821,49 +5045,453 @@ STRICT Rules:
 const S = {
   page: {
     minHeight: "100vh",
-    background: "var(--bg)",
+    background: "transparent",
     color: "var(--text)",
-    fontFamily: "'Georgia','Hiragino Mincho ProN',serif",
+    fontFamily: "'Manrope',-apple-system,BlinkMacSystemFont,sans-serif",
     padding: 16,
     maxWidth: 540,
     margin: "0 auto",
     boxSizing: "border-box"
   },
+  // ── dashboard ──
+  dashTop: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "6px 0 18px"
+  },
+  greet: {
+    fontSize: 13,
+    color: "var(--text-sub)",
+    fontWeight: 600
+  },
+  greetName: {
+    display: "block",
+    fontFamily: "'Fraunces',serif",
+    fontSize: 27,
+    fontWeight: 600,
+    color: "var(--text)",
+    letterSpacing: "-.5px",
+    marginTop: 3
+  },
+  hero: {
+    display: "flex",
+    alignItems: "center",
+    gap: 16,
+    padding: 18,
+    marginBottom: 14,
+    borderRadius: "var(--r-lg)",
+    background: "linear-gradient(150deg,rgba(129,140,248,.22),rgba(168,85,247,.10))",
+    border: "1px solid var(--border-bright)",
+    boxShadow: "var(--shadow-lg)",
+    backdropFilter: "blur(12px)",
+    WebkitBackdropFilter: "blur(12px)"
+  },
+  ringWrap: {
+    position: "relative",
+    width: 74,
+    height: 74,
+    flexShrink: 0
+  },
+  ringPct: {
+    position: "absolute",
+    inset: 0,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  ringNum: {
+    fontFamily: "'Fraunces',serif",
+    fontSize: 20,
+    fontWeight: 600,
+    lineHeight: 1
+  },
+  ringSub: {
+    fontSize: 9,
+    color: "var(--text-sub)",
+    marginTop: 2
+  },
+  heroStats: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    gap: 8
+  },
+  heroStat: {
+    display: "flex",
+    alignItems: "baseline",
+    gap: 9
+  },
+  heroV: {
+    fontFamily: "'Fraunces',serif",
+    fontSize: 19,
+    fontWeight: 600
+  },
+  heroK: {
+    fontSize: 12,
+    color: "var(--text-sub)",
+    fontWeight: 500
+  },
+  contCard: {
+    display: "flex",
+    alignItems: "center",
+    gap: 14,
+    background: "var(--card)",
+    border: "1px solid var(--border)",
+    borderRadius: "var(--r-lg)",
+    padding: "15px 16px",
+    marginBottom: 26,
+    cursor: "pointer",
+    boxShadow: "var(--shadow)",
+    backdropFilter: "blur(12px)",
+    WebkitBackdropFilter: "blur(12px)"
+  },
+  contIc: {
+    width: 48,
+    height: 48,
+    borderRadius: 14,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 24,
+    border: "1px solid var(--border-bright)",
+    flexShrink: 0
+  },
+  contTx: {
+    flex: 1,
+    minWidth: 0
+  },
+  contE: {
+    fontSize: 11,
+    color: "var(--accent-bright)",
+    fontWeight: 700,
+    letterSpacing: 1,
+    textTransform: "uppercase"
+  },
+  contN: {
+    fontWeight: 700,
+    fontSize: 16,
+    marginTop: 2,
+    letterSpacing: "-.3px"
+  },
+  contGo: {
+    width: 44,
+    height: 44,
+    minWidth: 44,
+    borderRadius: "var(--r-full)",
+    border: "none",
+    flexShrink: 0,
+    color: "#0b0d12",
+    fontSize: 17,
+    background: "linear-gradient(180deg,#a5b4fc,#818cf8)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer"
+  },
+  secHead: {
+    display: "flex",
+    alignItems: "baseline",
+    justifyContent: "space-between",
+    marginBottom: 13
+  },
+  secH: {
+    fontFamily: "'Fraunces',serif",
+    fontSize: 19,
+    fontWeight: 600,
+    letterSpacing: "-.3px"
+  },
+  // ── topic grid ──
+  grid: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: 12
+  },
+  tile: {
+    position: "relative",
+    background: "var(--card)",
+    border: "1px solid var(--border)",
+    borderRadius: "var(--r-lg)",
+    padding: "15px 14px 16px",
+    overflow: "hidden",
+    cursor: "pointer",
+    boxShadow: "var(--shadow)",
+    backdropFilter: "blur(12px)",
+    WebkitBackdropFilter: "blur(12px)"
+  },
+  tileGlow: {
+    position: "absolute",
+    right: -24,
+    top: -24,
+    width: 74,
+    height: 74,
+    borderRadius: "50%",
+    filter: "blur(30px)",
+    opacity: .45
+  },
+  tileIc: {
+    width: 46,
+    height: 46,
+    borderRadius: 14,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 23,
+    border: "1px solid var(--border-bright)",
+    position: "relative",
+    zIndex: 1,
+    marginBottom: 11
+  },
+  tileName: {
+    fontWeight: 700,
+    fontSize: 14.5,
+    letterSpacing: "-.2px",
+    position: "relative",
+    zIndex: 1
+  },
+  tileJa: {
+    fontFamily: "'Noto Sans JP',serif",
+    fontSize: 10.5,
+    color: "var(--text-faint)",
+    marginTop: 2,
+    position: "relative",
+    zIndex: 1
+  },
+  tilePbar: {
+    height: 5,
+    borderRadius: 3,
+    background: "rgba(255,255,255,.08)",
+    marginTop: 13,
+    position: "relative",
+    zIndex: 1,
+    overflow: "hidden"
+  },
+  tilePn: {
+    fontSize: 10,
+    color: "var(--text-sub)",
+    fontWeight: 600,
+    marginTop: 7,
+    position: "relative",
+    zIndex: 1
+  },
+  // ── bottom nav ──
+  bnav: {
+    position: "fixed",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    maxWidth: 540,
+    margin: "0 auto",
+    height: 78,
+    padding: "0 14px 16px",
+    display: "flex",
+    alignItems: "flex-end",
+    pointerEvents: "none",
+    zIndex: 60
+  },
+  bnavInner: {
+    flex: 1,
+    display: "flex",
+    gap: 4,
+    background: "rgba(20,24,34,.86)",
+    backdropFilter: "blur(20px)",
+    WebkitBackdropFilter: "blur(20px)",
+    border: "1px solid var(--border-bright)",
+    borderRadius: "var(--r-full)",
+    padding: 7,
+    pointerEvents: "auto",
+    boxShadow: "0 12px 30px rgba(0,0,0,.5)"
+  },
+  bnavItem: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: 3,
+    padding: "7px 0",
+    border: "none",
+    background: "none",
+    borderRadius: "var(--r-full)",
+    fontSize: 10,
+    fontWeight: 600,
+    color: "var(--text-faint)",
+    cursor: "pointer",
+    fontFamily: "'Manrope',sans-serif"
+  },
+  bnavItemOn: {
+    color: "#0b0d12",
+    background: "linear-gradient(180deg,#a5b4fc,#818cf8)"
+  },
+  bnavIcon: {
+    fontSize: 19
+  },
+  // ── floating audio dock (study) ──
+  dock: {
+    position: "fixed",
+    left: 14,
+    right: 14,
+    bottom: 16,
+    maxWidth: 512,
+    margin: "0 auto",
+    zIndex: 60,
+    background: "rgba(18,22,32,.92)",
+    backdropFilter: "blur(22px)",
+    WebkitBackdropFilter: "blur(22px)",
+    border: "1px solid var(--border-bright)",
+    borderRadius: 26,
+    padding: "14px 14px 12px",
+    boxShadow: "0 16px 40px rgba(0,0,0,.55),0 1px 0 rgba(255,255,255,.07) inset",
+    maxHeight: "82vh",
+    overflowY: "auto"
+  },
+  dockAdv: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 10,
+    marginBottom: 14,
+    paddingBottom: 14,
+    borderBottom: "1px solid var(--border)"
+  },
+  advRow: {
+    display: "flex",
+    alignItems: "center",
+    gap: 10
+  },
+  advLabel: {
+    fontSize: 12.5,
+    fontWeight: 600,
+    color: "var(--text-sub)",
+    minWidth: 84,
+    flexShrink: 0
+  },
+  advSeg: {
+    display: "flex",
+    gap: 6,
+    flex: 1
+  },
+  advPill: {
+    flex: 1,
+    height: 38,
+    borderRadius: 10,
+    border: "1px solid var(--border)",
+    background: "var(--subtle)",
+    color: "var(--text-sub)",
+    fontSize: 12.5,
+    fontWeight: 600,
+    cursor: "pointer"
+  },
+  advSel: {
+    flex: 1,
+    minWidth: 0,
+    padding: "8px 10px",
+    borderRadius: 10,
+    border: "1px solid var(--border)",
+    background: "var(--subtle)",
+    color: "var(--text)",
+    fontSize: 12,
+    fontFamily: "'Manrope',sans-serif"
+  },
+  advNoVoice: {
+    flex: 1,
+    fontSize: 11,
+    color: "var(--text-faint)",
+    fontStyle: "italic"
+  },
+  dockPlayRow: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 13,
+    marginBottom: 11
+  },
+  dockSkip: {
+    width: 46,
+    height: 46,
+    minWidth: 46,
+    borderRadius: "var(--r-full)",
+    border: "1px solid var(--border)",
+    background: "var(--subtle)",
+    color: "var(--text-sub)",
+    fontSize: 16,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer"
+  },
+  dockPlay: {
+    height: 50,
+    flex: 1,
+    maxWidth: 190,
+    border: "none",
+    borderRadius: "var(--r-full)",
+    cursor: "pointer",
+    fontSize: 15,
+    fontWeight: 700,
+    color: "#fff",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    boxShadow: "0 8px 20px rgba(0,0,0,.3),0 1px 0 rgba(255,255,255,.25) inset"
+  },
+  dockSeg: {
+    display: "flex",
+    gap: 6
+  },
+  dockPill: {
+    flex: 1,
+    height: 42,
+    borderRadius: 11,
+    border: "1px solid var(--border)",
+    background: "var(--subtle)",
+    color: "var(--text-sub)",
+    fontSize: 13,
+    fontWeight: 600,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer"
+  },
   menuHead: {
     textAlign: "center",
-    padding: "28px 0 16px"
+    padding: "32px 0 18px"
   },
   flags: {
-    fontSize: 32,
-    marginBottom: 6
+    fontSize: 30,
+    marginBottom: 8
   },
   title: {
-    fontSize: 44,
-    fontWeight: 800,
+    fontFamily: "'Fraunces',Georgia,serif",
+    fontSize: 54,
+    fontWeight: 600,
     color: "var(--text)",
-    margin: "0 0 4px",
-    letterSpacing: "-1px"
+    margin: "0 0 6px",
+    letterSpacing: "-2px"
   },
   sub: {
     fontSize: 13,
     color: "var(--text-sub)",
-    margin: 0
+    margin: 0,
+    letterSpacing: ".2px"
   },
   topicList: {
     display: "flex",
     flexDirection: "column",
-    gap: 9,
+    gap: 10,
     marginTop: 16
   },
   topicRow: {
     display: "flex",
     alignItems: "center",
-    gap: 12,
-    border: "2px solid",
-    borderRadius: 14,
-    padding: "12px 16px",
+    gap: 14,
+    border: "1px solid var(--border)",
+    borderRadius: "var(--r-md)",
+    padding: "14px 16px",
     cursor: "pointer",
-    boxShadow: "0 1px 4px #0001"
+    boxShadow: "var(--shadow)",
+    background: "var(--card)",
+    minHeight: 64
   },
   tEmoji: {
     fontSize: 26,
@@ -4874,27 +5502,36 @@ const S = {
   },
   tDE: {
     fontWeight: 700,
-    fontSize: 15
+    fontSize: 15.5,
+    letterSpacing: "-0.2px"
   },
   tJA: {
     fontSize: 11,
-    color: "#94a3b8",
-    marginTop: 2
+    color: "var(--text-faint)",
+    marginTop: 3
   },
   tCount: {
-    fontWeight: 800,
-    fontSize: 18,
+    fontFamily: "'Fraunces',serif",
+    fontWeight: 600,
+    fontSize: 23,
     minWidth: 28,
     textAlign: "right"
   },
   back: {
-    background: "none",
+    background: "var(--card)",
     border: "1px solid var(--border)",
-    borderRadius: 8,
-    padding: "6px 12px",
+    borderRadius: "var(--r-full)",
+    width: 44,
+    height: 44,
+    minWidth: 44,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     cursor: "pointer",
-    fontSize: 13,
-    color: "var(--text-sub)"
+    fontSize: 18,
+    color: "var(--text-sub)",
+    boxShadow: "var(--shadow)",
+    padding: 0
   },
   topicHead: {
     textAlign: "center",
@@ -4913,61 +5550,85 @@ const S = {
   modeList: {
     display: "flex",
     flexDirection: "column",
-    gap: 11,
+    gap: 12,
     marginTop: 18
   },
   modeRow: {
     display: "flex",
     alignItems: "center",
-    gap: 14,
+    gap: 16,
     background: "var(--card)",
-    border: "2px solid",
-    borderRadius: 14,
-    padding: "16px 18px",
+    border: "1px solid var(--border)",
+    borderRadius: "var(--r-md)",
+    padding: "18px 18px",
     cursor: "pointer",
-    boxShadow: "var(--shadow)"
+    boxShadow: "var(--shadow)",
+    minHeight: 72
   },
   mIcon: {
-    fontSize: 26
+    fontSize: 28
   },
   mLabel: {
     fontWeight: 700,
-    fontSize: 16
+    fontSize: 16.5,
+    letterSpacing: "-0.2px"
   },
   mDesc: {
     color: "var(--text-sub)",
-    fontSize: 12,
-    marginTop: 2
+    fontSize: 12.5,
+    marginTop: 3,
+    lineHeight: 1.4
   },
   bar: {
     display: "flex",
     alignItems: "center",
-    gap: 8,
-    marginBottom: 10
+    gap: 10,
+    marginBottom: 14
   },
   badge: {
-    borderRadius: 20,
+    borderRadius: "var(--r-full)",
     color: "#fff",
-    padding: "3px 11px",
-    fontSize: 12,
-    fontWeight: 600
+    height: 44,
+    minWidth: 44,
+    padding: "0 16px",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+    fontSize: 14.5,
+    fontWeight: 700,
+    whiteSpace: "nowrap",
+    letterSpacing: "-.2px"
+  },
+  badgeIcon: {
+    width: 44,
+    padding: 0,
+    fontSize: 21,
+    flexShrink: 0
   },
   ctr: {
     marginLeft: "auto",
     background: "var(--subtle)",
-    borderRadius: 20,
-    padding: "3px 10px",
-    fontSize: 12,
+    borderRadius: "var(--r-full)",
+    padding: "0 14px",
+    fontSize: 13,
     fontWeight: 600,
-    color: "var(--text-sub)"
+    color: "var(--text-sub)",
+    height: 36,
+    display: "flex",
+    alignItems: "center",
+    flexShrink: 0
   },
   fire: {
     background: "#fef3c7",
-    borderRadius: 20,
-    padding: "3px 10px",
-    fontSize: 12,
+    borderRadius: "var(--r-full)",
+    padding: "7px 14px",
+    fontSize: 13,
     fontWeight: 700,
-    color: "#92400e"
+    color: "#92400e",
+    minHeight: 36,
+    display: "flex",
+    alignItems: "center"
   },
   unlockToast: {
     position: "fixed",
@@ -5019,62 +5680,69 @@ const S = {
   },
   card: {
     background: "var(--card)",
-    borderRadius: 18,
-    padding: "28px 24px",
-    boxShadow: "var(--shadow)",
+    borderRadius: "var(--r-lg)",
+    padding: "30px 24px",
+    boxShadow: "var(--shadow-lg)",
     marginBottom: 16,
     animation: "fadeUp .3s ease",
     color: "var(--text)",
-    transition: "background-color .3s ease,color .3s ease"
+    border: "1px solid var(--border)"
   },
   lang: {
     fontSize: 11,
     fontWeight: 700,
-    letterSpacing: 1,
+    letterSpacing: 1.2,
     textTransform: "uppercase",
-    marginBottom: 10
+    marginBottom: 10,
+    opacity: .9
   },
   de: {
-    fontSize: 20,
-    fontWeight: 600,
+    fontFamily: "'Fraunces',Georgia,serif",
+    fontSize: 25,
+    fontWeight: 500,
     color: "var(--text)",
-    lineHeight: 1.45
+    lineHeight: 1.4,
+    letterSpacing: "-.4px"
   },
   ja: {
-    fontSize: 21,
+    fontFamily: "'Noto Sans JP','Hiragino Mincho ProN',serif",
+    fontSize: 22,
     color: "var(--text)",
-    lineHeight: 1.55,
+    lineHeight: 1.7,
     marginTop: 4
   },
   divLine: {
     height: 1,
-    margin: "18px 0"
+    margin: "20px 0"
   },
   revBtn: {
-    marginTop: 18,
+    marginTop: 20,
     width: "100%",
     border: "none",
-    borderRadius: 10,
+    borderRadius: "var(--r-md)",
     color: "#fff",
-    padding: "13px",
-    fontSize: 15,
-    fontWeight: 600,
-    cursor: "pointer"
+    padding: 0,
+    minHeight: 50,
+    fontSize: 15.5,
+    fontWeight: 700,
+    cursor: "pointer",
+    letterSpacing: "-0.2px"
   },
   audioBox: {
     background: "var(--card)",
-    borderRadius: 16,
-    padding: "14px 16px",
+    borderRadius: "var(--r-lg)",
+    padding: "16px 16px",
     marginBottom: 14,
     marginTop: 4,
-    boxShadow: "var(--shadow)"
+    boxShadow: "var(--shadow)",
+    border: "1px solid var(--border)"
   },
   audioRow: {
     display: "flex",
     gap: 8,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 10
+    marginBottom: 12
   },
   audioRow2: {
     display: "flex",
@@ -5083,42 +5751,55 @@ const S = {
   },
   playBtn: {
     border: "none",
-    borderRadius: 24,
+    borderRadius: "var(--r-full)",
     color: "#fff",
-    padding: "10px 28px",
+    padding: "0 30px",
+    minHeight: 48,
     fontSize: 15,
     fontWeight: 700,
-    cursor: "pointer"
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 7
   },
   navBtn2: {
     background: "var(--subtle)",
     border: "none",
-    borderRadius: 20,
-    padding: "8px 14px",
-    fontSize: 18,
+    borderRadius: "var(--r-full)",
+    width: 48,
+    height: 48,
+    minWidth: 48,
+    fontSize: 19,
     cursor: "pointer",
-    color: "var(--text-sub)"
+    color: "var(--text-sub)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   },
   segGroup: {
     display: "flex",
-    gap: 4
+    gap: 5
   },
   seg: {
     background: "var(--subtle)",
     border: "none",
-    borderRadius: 8,
-    padding: "6px 10px",
-    fontSize: 12,
+    borderRadius: "var(--r-sm)",
+    padding: "0 14px",
+    minHeight: 44,
+    fontSize: 12.5,
     fontWeight: 600,
     cursor: "pointer",
-    color: "var(--text-sub)"
+    color: "var(--text-sub)",
+    display: "flex",
+    alignItems: "center"
   },
   pauseRow: {
     display: "flex",
-    gap: 10,
+    gap: 12,
     alignItems: "center",
-    marginTop: 12,
-    paddingTop: 10,
+    marginTop: 14,
+    paddingTop: 12,
     borderTop: "1px solid var(--border)"
   },
   pauseLeft: {
@@ -5134,19 +5815,23 @@ const S = {
   },
   repeatToggle: {
     border: "none",
-    borderRadius: 10,
-    width: 42,
-    height: 42,
-    fontSize: 18,
+    borderRadius: "var(--r-sm)",
+    width: 48,
+    height: 48,
+    minWidth: 48,
+    fontSize: 19,
     cursor: "pointer",
     flexShrink: 0,
-    boxShadow: "0 1px 4px #0001"
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   },
   verbCard: {
     background: "var(--card)",
-    borderRadius: 18,
-    padding: "28px 22px",
-    boxShadow: "var(--shadow)",
+    borderRadius: "var(--r-lg)",
+    padding: "30px 22px",
+    boxShadow: "var(--shadow-lg)",
+    border: "1px solid var(--border)",
     marginBottom: 14,
     marginTop: 10,
     animation: "fadeUp .3s ease",
@@ -5161,8 +5846,9 @@ const S = {
   verbSearch: {
     width: "100%",
     border: "1px solid var(--border)",
-    borderRadius: 12,
-    padding: "11px 36px 11px 14px",
+    borderRadius: "var(--r-md)",
+    padding: "13px 40px 13px 16px",
+    minHeight: 48,
     fontSize: 14,
     fontFamily: "inherit",
     outline: "none",
@@ -5192,13 +5878,16 @@ const S = {
   },
   verbTypePill: {
     border: "none",
-    borderRadius: 14,
-    padding: "6px 12px",
-    fontSize: 12,
+    borderRadius: "var(--r-full)",
+    padding: "0 16px",
+    minHeight: 38,
+    fontSize: 12.5,
     fontWeight: 600,
     cursor: "pointer",
     whiteSpace: "nowrap",
-    flexShrink: 0
+    flexShrink: 0,
+    display: "flex",
+    alignItems: "center"
   },
   verbList: {
     display: "flex",
@@ -5218,12 +5907,13 @@ const S = {
     alignItems: "center",
     background: "var(--card)",
     border: "1px solid var(--border)",
-    borderRadius: 12,
-    padding: "12px 14px",
+    borderRadius: "var(--r-md)",
+    padding: "14px 16px",
     cursor: "pointer",
     textAlign: "left",
     width: "100%",
-    boxShadow: "var(--shadow)"
+    boxShadow: "var(--shadow)",
+    minHeight: 60
   },
   verbRowMain: {
     display: "flex",
@@ -5470,10 +6160,11 @@ const S = {
   },
   lvlSection: {
     background: "var(--card)",
-    borderRadius: 16,
-    padding: "16px 18px",
+    borderRadius: "var(--r-md)",
+    padding: "18px 18px",
     marginTop: 18,
-    boxShadow: "var(--shadow)"
+    boxShadow: "var(--shadow)",
+    border: "1px solid var(--border)"
   },
   lvlHead: {
     fontSize: 14,
@@ -5495,18 +6186,18 @@ const S = {
   lvlPillRow: {
     display: "grid",
     gridTemplateColumns: "repeat(6,1fr)",
-    gap: 6
+    gap: 7
   },
   lvlPill: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     gap: 2,
-    border: "2px solid",
-    borderRadius: 10,
-    padding: "8px 4px",
+    border: "1.5px solid",
+    borderRadius: "var(--r-sm)",
+    padding: "10px 4px",
     cursor: "pointer",
-    minHeight: 48,
+    minHeight: 52,
     justifyContent: "center"
   },
   lvlPillName: {
@@ -5521,9 +6212,9 @@ const S = {
   },
   lvlDetailBox: {
     marginTop: 14,
-    padding: "14px 14px",
+    padding: "16px 16px",
     background: "var(--subtle)",
-    borderRadius: 12,
+    borderRadius: "var(--r-md)",
     animation: "fadeUp .25s ease"
   },
   lvlDetailTitle: {
@@ -5535,16 +6226,17 @@ const S = {
   },
   lvlBtnRow: {
     display: "flex",
-    gap: 8,
+    gap: 10,
     marginTop: 6
   },
   lvlBtn: {
     flex: 1,
     border: "none",
-    borderRadius: 10,
+    borderRadius: "var(--r-md)",
     color: "#fff",
-    padding: "11px 8px",
-    fontSize: 13,
+    padding: 0,
+    minHeight: 48,
+    fontSize: 14,
     fontWeight: 700,
     cursor: "pointer"
   },
@@ -5559,8 +6251,8 @@ const S = {
     display: "inline-block",
     background: "#0ea5e9",
     color: "#fff",
-    padding: "5px 14px",
-    borderRadius: 14,
+    padding: "6px 16px",
+    borderRadius: "var(--r-full)",
     fontSize: 12,
     fontWeight: 700,
     letterSpacing: .3,
@@ -5571,7 +6263,7 @@ const S = {
     background: "linear-gradient(135deg,#16a34a,#22c55e)",
     color: "#fff",
     padding: "10px 18px",
-    borderRadius: 14,
+    borderRadius: "var(--r-md)",
     fontSize: 14,
     fontWeight: 700,
     marginTop: 8,
@@ -5586,23 +6278,25 @@ const S = {
   },
   navBtnL: {
     flex: 1,
-    padding: 12,
+    padding: 0,
+    minHeight: 50,
     border: "1px solid var(--border)",
-    borderRadius: 10,
+    borderRadius: "var(--r-md)",
     background: "var(--card)",
-    fontSize: 14,
+    fontSize: 14.5,
     fontWeight: 600,
     cursor: "pointer",
     color: "var(--text-sub)"
   },
   navBtnR: {
     flex: 1,
-    padding: 12,
+    padding: 0,
+    minHeight: 50,
     border: "none",
-    borderRadius: 10,
+    borderRadius: "var(--r-md)",
     color: "#fff",
-    fontSize: 14,
-    fontWeight: 600,
+    fontSize: 14.5,
+    fontWeight: 700,
     cursor: "pointer"
   },
   qLabel: {
@@ -5630,16 +6324,17 @@ const S = {
     display: "flex",
     alignItems: "center",
     gap: 12,
-    border: "2px solid",
-    borderRadius: 12,
-    padding: "13px 14px",
+    border: "1.5px solid",
+    borderRadius: "var(--r-md)",
+    padding: "15px 15px",
     cursor: "pointer",
     textAlign: "left",
-    width: "100%"
+    width: "100%",
+    minHeight: 56
   },
   optLet: {
-    width: 26,
-    height: 26,
+    width: 28,
+    height: 28,
     borderRadius: "50%",
     background: "var(--subtle)",
     display: "flex",
@@ -5649,12 +6344,11 @@ const S = {
     fontWeight: 700,
     color: "var(--text-sub)",
     flexShrink: 0,
-    lineHeight: "26px",
     textAlign: "center"
   },
   fb: {
     background: "var(--card)",
-    borderRadius: 14,
+    borderRadius: "var(--r-md)",
     padding: "14px 16px",
     boxShadow: "var(--shadow)",
     display: "flex",
@@ -5666,27 +6360,28 @@ const S = {
     display: "flex",
     alignItems: "center",
     gap: 12,
-    padding: "14px 18px",
-    borderRadius: 14,
+    padding: "15px 18px",
+    borderRadius: "var(--r-md)",
     marginTop: 6,
     marginBottom: 10,
     animation: "fadeUp .3s ease",
-    boxShadow: "0 2px 10px #0001"
+    boxShadow: "var(--shadow)"
   },
   pairCard: {
     background: "var(--card)",
-    borderRadius: 14,
-    padding: "14px 16px",
+    borderRadius: "var(--r-md)",
+    padding: "16px 16px",
     boxShadow: "var(--shadow)",
     marginBottom: 10,
     animation: "fadeUp .35s ease",
-    color: "var(--text)"
+    color: "var(--text)",
+    border: "1px solid var(--border)"
   },
   pairRow: {
     display: "flex",
     alignItems: "center",
     gap: 10,
-    padding: "8px 0",
+    padding: "10px 0",
     borderBottom: "1px solid var(--border)"
   },
   pairLang: {
@@ -5696,7 +6391,7 @@ const S = {
   },
   pairDe: {
     flex: 1,
-    fontSize: 14,
+    fontSize: 14.5,
     fontWeight: 600,
     color: "var(--text)",
     lineHeight: 1.45
@@ -5711,45 +6406,52 @@ const S = {
   pairSpeak: {
     background: "var(--subtle)",
     border: "none",
-    borderRadius: 8,
-    width: 32,
-    height: 32,
-    fontSize: 14,
+    borderRadius: "var(--r-full)",
+    width: 40,
+    height: 40,
+    minWidth: 40,
+    fontSize: 15,
     cursor: "pointer",
     flexShrink: 0,
     padding: 0,
-    color: "var(--text)"
+    color: "var(--text)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   },
   pairPlayBoth: {
     width: "100%",
     background: "var(--subtle)",
     border: "none",
-    borderRadius: 8,
-    padding: "8px",
-    fontSize: 12,
+    borderRadius: "var(--r-sm)",
+    padding: 0,
+    minHeight: 44,
+    fontSize: 12.5,
     fontWeight: 600,
     cursor: "pointer",
     color: "var(--text-sub)",
-    marginTop: 8
+    marginTop: 10
   },
   bigNextBtn: {
     width: "100%",
     border: "none",
-    borderRadius: 14,
-    padding: "16px",
+    borderRadius: "var(--r-md)",
+    padding: 0,
+    minHeight: 54,
     color: "#fff",
     fontSize: 16,
     fontWeight: 700,
     cursor: "pointer",
-    boxShadow: "0 4px 14px #0002",
+    boxShadow: "var(--shadow-lg)",
     animation: "fadeUp .4s ease",
     marginTop: 4
   },
   nextBtn: {
     border: "none",
-    borderRadius: 10,
+    borderRadius: "var(--r-full)",
     color: "#fff",
-    padding: "10px 18px",
+    padding: "0 20px",
+    minHeight: 44,
     fontSize: 14,
     fontWeight: 700,
     cursor: "pointer",
@@ -5757,12 +6459,13 @@ const S = {
   },
   resultBox: {
     background: "var(--card)",
-    borderRadius: 24,
-    padding: "36px 28px",
+    borderRadius: "var(--r-lg)",
+    padding: "38px 28px",
     textAlign: "center",
-    boxShadow: "var(--shadow)",
+    boxShadow: "var(--shadow-lg)",
     marginTop: 32,
-    color: "var(--text)"
+    color: "var(--text)",
+    border: "1px solid var(--border)"
   },
   fire2: {
     display: "inline-block",
@@ -5843,10 +6546,11 @@ const S = {
   analyzeBtn: {
     width: "100%",
     background: "var(--card)",
-    border: "2px dashed",
-    borderRadius: 12,
-    padding: "12px",
-    fontSize: 14,
+    border: "1.5px dashed",
+    borderRadius: "var(--r-md)",
+    padding: 0,
+    minHeight: 50,
+    fontSize: 14.5,
     fontWeight: 600,
     cursor: "pointer"
   },
@@ -5998,22 +6702,27 @@ const S = {
     flex: 1,
     background: "var(--subtle)",
     border: "1px solid var(--border)",
-    borderRadius: 8,
-    padding: "8px",
-    fontSize: 12,
+    borderRadius: "var(--r-sm)",
+    padding: 0,
+    minHeight: 44,
+    fontSize: 13,
     fontWeight: 600,
     cursor: "pointer",
     color: "var(--text)"
   },
   furiBtn: {
     border: "none",
-    borderRadius: 8,
-    padding: "3px 9px",
-    fontSize: 13,
+    borderRadius: "var(--r-full)",
+    width: 44,
+    height: 44,
+    minWidth: 44,
+    fontSize: 16,
     fontWeight: 700,
     cursor: "pointer",
     fontFamily: "'Hiragino Mincho ProN',serif",
-    letterSpacing: .5
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   },
   rt: {
     fontSize: "0.6em",
@@ -6025,37 +6734,40 @@ const S = {
   toolGrid: {
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
-    gap: 10,
+    gap: 11,
     marginBottom: 20
   },
   toolCard: {
-    borderRadius: 16,
-    padding: "16px 14px",
+    borderRadius: "var(--r-md)",
+    padding: "18px 16px",
     cursor: "pointer",
     color: "#fff",
-    boxShadow: "0 6px 20px #0000001f"
+    boxShadow: "var(--shadow-lg)",
+    minHeight: 96
   },
   toolIcon: {
     fontSize: 28,
     display: "block",
-    marginBottom: 6
+    marginBottom: 8
   },
   toolName: {
     fontSize: 15,
     fontWeight: 700,
-    marginBottom: 2
+    marginBottom: 3,
+    letterSpacing: "-0.2px"
   },
   toolDesc: {
-    fontSize: 11,
-    opacity: .85,
+    fontSize: 11.5,
+    opacity: .88,
     lineHeight: 1.4
   },
   recBox: {
     background: "var(--card)",
-    borderRadius: 16,
-    padding: "14px 16px",
+    borderRadius: "var(--r-md)",
+    padding: "16px 16px",
     marginTop: 14,
-    boxShadow: "var(--shadow)"
+    boxShadow: "var(--shadow)",
+    border: "1px solid var(--border)"
   },
   recHeadRow: {
     display: "flex",
@@ -6072,8 +6784,8 @@ const S = {
   savedRating: {
     fontSize: 11,
     fontWeight: 700,
-    padding: "3px 9px",
-    borderRadius: 12,
+    padding: "4px 11px",
+    borderRadius: "var(--r-full)",
     letterSpacing: .3
   },
   recHint: {
@@ -6084,30 +6796,32 @@ const S = {
   },
   recBtns: {
     display: "flex",
-    gap: 8
+    gap: 10
   },
   recBtn: {
     flex: 1,
     border: "none",
-    borderRadius: 10,
+    borderRadius: "var(--r-md)",
     color: "#fff",
-    padding: "11px 8px",
-    fontSize: 13,
-    fontWeight: 600,
+    padding: 0,
+    minHeight: 48,
+    fontSize: 14,
+    fontWeight: 700,
     cursor: "pointer"
   },
   rateBtn: {
     flex: 1,
-    border: "2px solid",
-    borderRadius: 12,
-    padding: "10px 6px",
+    border: "1.5px solid",
+    borderRadius: "var(--r-md)",
+    padding: "12px 6px",
     fontSize: 20,
     fontWeight: 700,
     cursor: "pointer",
     background: "var(--card)",
     lineHeight: 1.2,
     textAlign: "center",
-    color: "var(--text)"
+    color: "var(--text)",
+    minHeight: 56
   },
   rateLabel: {
     fontSize: 11,
@@ -6177,8 +6891,9 @@ const S = {
   chatInput: {
     flex: 1,
     border: "1px solid var(--border)",
-    borderRadius: 12,
-    padding: "10px 12px",
+    borderRadius: "var(--r-md)",
+    padding: "12px 14px",
+    minHeight: 48,
     fontSize: 14,
     resize: "none",
     fontFamily: "inherit",
@@ -6188,10 +6903,11 @@ const S = {
   },
   sendBtn: {
     border: "none",
-    borderRadius: 12,
+    borderRadius: "var(--r-md)",
     color: "#fff",
-    padding: "0 16px",
-    fontSize: 13,
+    padding: "0 20px",
+    minHeight: 48,
+    fontSize: 14,
     fontWeight: 700,
     cursor: "pointer",
     whiteSpace: "nowrap"
@@ -6202,10 +6918,11 @@ const S = {
   },
   genForm: {
     background: "var(--card)",
-    borderRadius: 16,
+    borderRadius: "var(--r-md)",
     padding: 18,
     boxShadow: "var(--shadow)",
-    color: "var(--text)"
+    color: "var(--text)",
+    border: "1px solid var(--border)"
   },
   genLabel: {
     display: "block",
@@ -6219,8 +6936,9 @@ const S = {
   genInput: {
     width: "100%",
     border: "1px solid var(--border)",
-    borderRadius: 10,
-    padding: "10px 12px",
+    borderRadius: "var(--r-sm)",
+    padding: "12px 14px",
+    minHeight: 48,
     fontSize: 14,
     fontFamily: "inherit",
     outline: "none",
@@ -6230,14 +6948,15 @@ const S = {
   },
   levelRow: {
     display: "flex",
-    gap: 6
+    gap: 7
   },
   lvlBtn: {
     flex: 1,
     border: "none",
-    borderRadius: 10,
-    padding: "10px",
-    fontSize: 13,
+    borderRadius: "var(--r-sm)",
+    padding: 0,
+    minHeight: 46,
+    fontSize: 13.5,
     fontWeight: 700,
     cursor: "pointer"
   },
@@ -6245,18 +6964,20 @@ const S = {
     width: "100%",
     marginTop: 14,
     border: "none",
-    borderRadius: 12,
+    borderRadius: "var(--r-md)",
     color: "#fff",
+    minHeight: 50,
     padding: "13px",
     fontSize: 15,
     fontWeight: 700
   },
   genCard: {
     background: "var(--card)",
-    borderRadius: 14,
+    borderRadius: "var(--r-md)",
     padding: "14px 16px",
     boxShadow: "var(--shadow)",
-    color: "var(--text)"
+    color: "var(--text)",
+    border: "1px solid var(--border)"
   },
   genDE: {
     fontSize: 15,
@@ -6411,8 +7132,8 @@ const S = {
     top: 14,
     right: 14,
     zIndex: 50,
-    width: 42,
-    height: 42,
+    width: 44,
+    height: 44,
     borderRadius: "50%",
     border: "1px solid var(--border)",
     background: "var(--card)",
@@ -6427,13 +7148,17 @@ const S = {
   qnTrigger: {
     background: "var(--subtle)",
     border: "none",
-    borderRadius: 8,
-    padding: "4px 12px",
+    borderRadius: "var(--r-full)",
+    width: 44,
+    height: 44,
+    minWidth: 44,
     fontSize: 18,
     cursor: "pointer",
     color: "var(--text-sub)",
     fontWeight: 700,
-    marginLeft: 4
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   },
   qnBack: {
     position: "fixed",
@@ -6706,16 +7431,21 @@ rt {font-size: 0.6em; line-height: 1.5; text-align: center}
 ::-webkit-scrollbar-track {background: transparent}
 ::-webkit-scrollbar-thumb {background: rgba(127,127,127,.3); border-radius: 4px}`;
 document.head.appendChild(st);
-ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
 
-</script>
-<script>
-// hide splash once React renders
-var _t=setInterval(function(){var r=document.getElementById('root');if(r&&r.firstChild){var s=document.getElementById('splash');if(s){s.style.opacity='0';setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s);},450);}clearInterval(_t);}},80);
-setTimeout(function(){clearInterval(_t);var s=document.getElementById('splash');if(s){s.style.opacity='0';setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s);},450);}},10000);
-// show setup if no key (runs last, after everything)
-(function(){var has='';try{has=localStorage.getItem('sp3_gemini_key')||'';}catch(e){}
-if(!has){document.getElementById('setup').style.display='flex';var s=document.getElementById('splash');if(s)s.style.display='none';}})();
-</script>
-</body>
-</html>
+// Premium typography: Fraunces (display serif) + Manrope (UI) + Noto Sans JP (Japanese)
+(function () {
+  if (document.getElementById("sp3-fonts")) return;
+  var pc = document.createElement("link");
+  pc.rel = "preconnect";
+  pc.href = "https://fonts.gstatic.com";
+  pc.crossOrigin = "anonymous";
+  document.head.appendChild(pc);
+  var f = document.createElement("link");
+  f.id = "sp3-fonts";
+  f.rel = "stylesheet";
+  f.href = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap";
+  document.head.appendChild(f);
+})();
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App));
+
+</script><script>var _t=setInterval(function(){var r=document.getElementById('root');if(r&&r.firstChild){var s=document.getElementById('splash');if(s){s.style.opacity='0';setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s);},460);}clearInterval(_t);}},80);setTimeout(function(){clearInterval(_t);var s=document.getElementById('splash');if(s){s.style.opacity='0';setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s);},460);}},10000);(function(){var has='';try{has=localStorage.getItem('sp3_gemini_key')||'';}catch(e){}if(!has){document.getElementById('setup').style.display='flex';var s=document.getElementById('splash');if(s)s.style.display='none';}})();</script></body></html>
